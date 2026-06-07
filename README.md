@@ -15,6 +15,7 @@ Download the ZIP file, unzip it, and place the plugin files into your Obsidian p
 ## What changed
 
 - Compact top toolbar with common actions grouped in one place.
+- Compact toolbar behavior now also applies to Obsidian mobile.
 - Side and bottom controls moved into the main toolbar area.
 - Undo and redo moved toward the left side for faster access.
 - Selection actions such as copy, delete, and edit are shown closer to the selected element.

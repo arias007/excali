@@ -2511,6 +2511,48 @@ export default class ExcalidrawView
     return Boolean(pen && this.compactToolbarPenStyles[pen]);
   }
 
+  private getCompactToolbarRootSelector() {
+    return ".excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile)";
+  }
+
+  private getCompactToolbarSelector(selector: string) {
+    const rootSelector = this.getCompactToolbarRootSelector();
+    return selector
+      .split(",")
+      .map((part) => `${rootSelector} ${part.trim()}`)
+      .join(", ");
+  }
+
+  private getCompactToolbarSelectorList(selectors: string[]) {
+    return selectors
+      .map((selector) => this.getCompactToolbarSelector(selector))
+      .join(", ");
+  }
+
+  private queryCompactToolbarElement<T extends Element>(
+    selector: string,
+  ): T | null {
+    return this.contentEl.querySelector<T>(
+      this.getCompactToolbarSelector(selector),
+    );
+  }
+
+  private queryCompactToolbarElementList<T extends Element>(
+    selectors: string[],
+  ): T | null {
+    return this.contentEl.querySelector<T>(
+      this.getCompactToolbarSelectorList(selectors),
+    );
+  }
+
+  private queryCompactToolbarElements<T extends Element>(
+    selectors: string[],
+  ): NodeListOf<T> {
+    return this.contentEl.querySelectorAll<T>(
+      this.getCompactToolbarSelectorList(selectors),
+    );
+  }
+
   private ensureCompactPenMenu(): HTMLElement {
     let menu = this.contentEl.querySelector<HTMLElement>(
       ".excalidraw-compact-pen-menu",
@@ -2759,10 +2801,12 @@ export default class ExcalidrawView
       Boolean(
         target?.closest(".excalidraw-compact-pen-menu") ||
           target?.closest(
-            [
-              '.excalidraw-wrapper .excalidraw--tray .App-bottom-bar button[aria-label="编辑"]',
-              '.excalidraw-wrapper .excalidraw--tray .App-bottom-bar button[aria-label="Edit"]',
-            ].join(", "),
+            this.getCompactToolbarSelectorList([
+              '.App-bottom-bar button[aria-label="编辑"]',
+              '.App-bottom-bar button[aria-label="Edit"]',
+              '.App-mobile-menu button[aria-label="编辑"]',
+              '.App-mobile-menu button[aria-label="Edit"]',
+            ]),
           ),
       );
 
@@ -2957,17 +3001,17 @@ export default class ExcalidrawView
   private updateCompactToolbarLayout() {
     try {
       const wrapper = this.contentEl.querySelector(".excalidraw-wrapper");
-      const toolbar = this.contentEl.querySelector(
-        ".excalidraw-wrapper .excalidraw--tray .FixedSideContainer_side_top.App-top-bar .App-toolbar",
+      const toolbar = this.queryCompactToolbarElement<HTMLElement>(
+        ".FixedSideContainer_side_top.App-top-bar .App-toolbar, .App-toolbar--mobile, .App-toolbar",
       );
-      const topBar = this.contentEl.querySelector(
-        ".excalidraw-wrapper .excalidraw--tray .FixedSideContainer_side_top.App-top-bar",
+      const topBar = this.queryCompactToolbarElement<HTMLElement>(
+        ".FixedSideContainer_side_top.App-top-bar",
       );
-      const bottomBar = this.contentEl.querySelector(
-        ".excalidraw-wrapper .excalidraw--tray .App-bottom-bar",
+      const bottomBar = this.queryCompactToolbarElement<HTMLElement>(
+        ".App-bottom-bar",
       );
-      const zoomActions = this.contentEl.querySelector(
-        ".excalidraw-wrapper .excalidraw--tray .App-bottom-bar .zoom-actions",
+      const zoomActions = this.queryCompactToolbarElement<HTMLElement>(
+        ".App-bottom-bar .zoom-actions, .zoom-actions",
       );
       if (!wrapper || !toolbar || !bottomBar || !zoomActions) {
         return;
@@ -2981,8 +3025,13 @@ export default class ExcalidrawView
       const bottomBarLeft = bottomBarRect.left || wrapperRect.left + 8;
       const maxToolbarWidth = Math.max(92, wrapperRect.width - 16);
       const zoomWidth = Math.max(36, Math.ceil(zoomRect.width || 36));
-      const miscTools = this.contentEl.querySelector(
-        ".excalidraw-wrapper .excalidraw--tray .App-toolbar-container .tray-misc-tools-container",
+      const miscTools = this.queryCompactToolbarElementList<HTMLElement>(
+        [
+          ".App-toolbar-container .tray-misc-tools-container",
+          ".App-toolbar-container .mobile-misc-tools-container",
+          ".tray-misc-tools-container",
+          ".mobile-misc-tools-container",
+        ],
       );
       const visibleMiscRects = miscTools
         ? Array.from(miscTools.children)
@@ -3013,7 +3062,7 @@ export default class ExcalidrawView
       );
       const penTool = this.contentEl
         .querySelector<HTMLElement>(
-          '.excalidraw-wrapper .excalidraw--tray [data-testid="toolbar-freedraw"]',
+          this.getCompactToolbarSelector('[data-testid="toolbar-freedraw"]'),
         )
         ?.closest<HTMLElement>(".ToolIcon");
       const penToolRect = penTool?.getBoundingClientRect();
@@ -3108,15 +3157,21 @@ export default class ExcalidrawView
       }
 
       const actionButtons = Array.from(
-        this.contentEl.querySelectorAll<HTMLElement>(
+        this.queryCompactToolbarElements<HTMLElement>(
           [
-            '.excalidraw-wrapper .excalidraw--tray .App-bottom-bar button[aria-label="编辑"]',
-            '.excalidraw-wrapper .excalidraw--tray .App-bottom-bar button[aria-label="Edit"]',
-            '.excalidraw-wrapper .excalidraw--tray .App-bottom-bar button[aria-label="复制"]',
-            '.excalidraw-wrapper .excalidraw--tray .App-bottom-bar button[aria-label="Duplicate"]',
-            '.excalidraw-wrapper .excalidraw--tray .App-bottom-bar button[aria-label="删除"]',
-            '.excalidraw-wrapper .excalidraw--tray .App-bottom-bar button[aria-label="Delete"]',
-          ].join(", "),
+            '.App-bottom-bar button[aria-label="编辑"]',
+            '.App-bottom-bar button[aria-label="Edit"]',
+            '.App-bottom-bar button[aria-label="复制"]',
+            '.App-bottom-bar button[aria-label="Duplicate"]',
+            '.App-bottom-bar button[aria-label="删除"]',
+            '.App-bottom-bar button[aria-label="Delete"]',
+            '.App-mobile-menu button[aria-label="编辑"]',
+            '.App-mobile-menu button[aria-label="Edit"]',
+            '.App-mobile-menu button[aria-label="复制"]',
+            '.App-mobile-menu button[aria-label="Duplicate"]',
+            '.App-mobile-menu button[aria-label="删除"]',
+            '.App-mobile-menu button[aria-label="Delete"]',
+          ],
         ),
       ).filter((button) => {
         const style = this.ownerWindow.getComputedStyle(button);
@@ -3140,8 +3195,7 @@ export default class ExcalidrawView
       const fixedOriginRect = fixedOriginProbe.getBoundingClientRect();
       fixedOriginProbe.remove();
       const toolbarBottom =
-        (this.contentEl
-          .querySelector(".excalidraw-wrapper .excalidraw--tray .App-bottom-bar")
+        (this.queryCompactToolbarElement<HTMLElement>(".App-bottom-bar")
           ?.getBoundingClientRect().bottom ?? wrapperRect.top + 30) + 6;
       const clamp = (value: number, min: number, max: number) =>
         Math.max(min, Math.min(max, value));
@@ -3186,18 +3240,21 @@ export default class ExcalidrawView
             ? null
             : (activeToolType
                 ? this.contentEl.querySelector<HTMLElement>(
-                    `.excalidraw-wrapper .excalidraw--tray [data-testid="toolbar-${activeToolType}"]`,
+                    this.getCompactToolbarSelector(
+                      `[data-testid="toolbar-${activeToolType}"]`,
+                    ),
                   )
                 : null) ??
               this.contentEl.querySelector<HTMLElement>(
-                ".excalidraw-wrapper .excalidraw--tray [data-testid=\"toolbar-freedraw\"]",
+                this.getCompactToolbarSelector('[data-testid="toolbar-freedraw"]'),
               );
         const activeToolRect =
           activeCompactPenRect ??
           activeToolInput?.closest<HTMLElement>(".ToolIcon")?.getBoundingClientRect() ??
           activeToolInput?.getBoundingClientRect() ??
-          this.contentEl
-            .querySelector(".excalidraw-wrapper .excalidraw--tray .FixedSideContainer_side_top.App-top-bar .App-toolbar")
+          this.queryCompactToolbarElement<HTMLElement>(
+            ".FixedSideContainer_side_top.App-top-bar .App-toolbar, .App-toolbar--mobile, .App-toolbar",
+          )
             ?.getBoundingClientRect() ??
           wrapperRect;
         const visibleShapeSubmenuBottom =
@@ -3205,13 +3262,13 @@ export default class ExcalidrawView
             ? Math.max(
                 0,
                 ...Array.from(
-                  this.contentEl.querySelectorAll<HTMLElement>(
+                  this.queryCompactToolbarElements<HTMLElement>(
                     [
-                      '.excalidraw-wrapper .excalidraw--tray [data-testid="toolbar-rectangle"]',
-                      '.excalidraw-wrapper .excalidraw--tray [data-testid="toolbar-diamond"]',
-                      '.excalidraw-wrapper .excalidraw--tray [data-testid="toolbar-ellipse"]',
-                      '.excalidraw-wrapper .excalidraw--tray [data-testid="toolbar-arrow"]',
-                    ].join(", "),
+                      '[data-testid="toolbar-rectangle"]',
+                      '[data-testid="toolbar-diamond"]',
+                      '[data-testid="toolbar-ellipse"]',
+                      '[data-testid="toolbar-arrow"]',
+                    ],
                   ),
                 )
                   .map((input) => input.closest<HTMLElement>(".ToolIcon"))
