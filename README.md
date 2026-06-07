@@ -1,62 +1,63 @@
 # excali
 
-好魔改的 excalidrae。
+A modified Excalidraw plugin for Obsidian.
 
-这是基于 Obsidian Excalidraw 插件魔改的版本，重点改成更适合笔记、批注和交互式 Markdown 图片涂鸦的使用方式。
+This repository contains a custom build of the Obsidian Excalidraw plugin, tuned for handwriting notes, image annotation, interactive Markdown import, and a more compact drawing workflow.
 
-## 主要魔改
+## What changed
 
-- 紧凑顶部工具栏，把常用按钮集中到上方。
-- 右侧和底部工具按钮合并到同一工具栏区域。
-- 撤销、重做等常用按钮靠左放置。
-- 元素复制、删除、编辑等操作菜单尽量贴近被选中的元素显示。
-- 画笔工具支持二级笔位。
-- 二级笔横排显示，点 `+` 可新增更多笔。
-- 每支笔独立记住颜色、粗细、样式等画图配置。
-- 二级笔图标会跟随当前配置实时变化。
-- 长按二级笔可删除笔位。
-- 切到笔工具时显示二级笔，切到其他工具时隐藏。
-- 优化交互式 Markdown/图片导入后的涂鸦层级，涂鸦不会跑到图片下面。
-- 修复含图片 Markdown 导入后的显示位置和自适应问题。
-- 优化导入内容的大框显示，让图片和批注区域更适合笔记使用。
+- Compact top toolbar with common actions grouped in one place.
+- Side and bottom controls moved into the main toolbar area.
+- Undo and redo moved toward the left side for faster access.
+- Selection actions such as copy, delete, and edit are shown closer to the selected element.
+- Pen mode supports secondary pen presets.
+- Secondary pens are shown as a horizontal row when the pen tool is active.
+- The `+` button adds more pen presets.
+- Each pen remembers its own color, stroke width, style, and drawing settings.
+- Pen preset icons update to reflect the current configuration.
+- Long-press a secondary pen to delete that preset.
+- Secondary pens are hidden when switching away from the pen tool.
+- Interactive Markdown and image import layering was adjusted so handwriting stays above imported images.
+- Imported Markdown images now keep better position and sizing.
+- Imported content frames are adjusted to better fit annotation workflows.
 
-## 安装说明
+## Installation
 
-当前插件 ID 仍保留为：
+The plugin ID is intentionally still:
 
 ```text
 obsidian-excalidraw-plugin
 ```
 
-这样可以继续覆盖安装到原 Excalidraw 插件目录，例如：
+This keeps it compatible with the existing Obsidian Excalidraw plugin folder, for example:
 
 ```text
 E:/note/.obsidian/plugins/obsidian-excalidraw-plugin
 ```
 
-如果手动安装，可以把构建后的插件文件放入 Obsidian 库的插件目录：
+For manual installation, copy the built plugin files into:
 
 ```text
-<你的 Vault>/.obsidian/plugins/obsidian-excalidraw-plugin
+<your vault>/.obsidian/plugins/obsidian-excalidraw-plugin
 ```
 
-然后在 Obsidian 设置里启用该插件。
+Then enable the plugin in Obsidian settings.
 
-## 开发与打包
+## Build
 
-安装依赖：
+Install dependencies:
 
 ```powershell
 npm install
 ```
 
-打包：
+Build the plugin:
 
 ```powershell
 npm run build
 ```
 
-主要输出文件通常包括：
+Typical build output includes:
 
 ```text
 main.js
@@ -64,16 +65,16 @@ manifest.json
 styles.css
 ```
 
-## 注意
+## Notes
 
-- 这是个人魔改版本，不是原作者官方版本。
-- 为了兼容当前 Obsidian 安装路径，插件 ID 暂未改名。
-- 如果已经安装官方 Excalidraw 插件，覆盖安装前请先备份原插件目录。
+- This is a custom modified build, not the official upstream release.
+- The plugin ID has not been renamed to avoid breaking the current Obsidian installation path.
+- Back up the original Excalidraw plugin folder before replacing it.
 
-## 来源
+## Upstream
 
-基于原项目修改：
+Based on the original project:
 
 https://github.com/zsviczian/obsidian-excalidraw-plugin
 
-原项目 License 保留，详见 `LICENSE`。
+The original license is preserved in `LICENSE`.

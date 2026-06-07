@@ -1,7 +1,7 @@
 {
   "name": "excali",
   "version": "2.2.5",
-  "description": "好魔改的 excalidrae",
+  "description": "Modified Excalidraw for Obsidian",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
