@@ -2511,8 +2511,30 @@ export default class ExcalidrawView
     return Boolean(pen && this.compactToolbarPenStyles[pen]);
   }
 
+  private getCompactToolbarBaseRootSelector() {
+    return ".excalidraw-wrapper .excalidraw--tray";
+  }
+
   private getCompactToolbarRootSelector() {
-    return ".excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile)";
+    return `${this.getCompactToolbarBaseRootSelector()}.excalidraw-compact-toolbar-enabled`;
+  }
+
+  private setCompactToolbarEnabled(enabled: boolean) {
+    const roots = this.contentEl.querySelectorAll<HTMLElement>(
+      this.getCompactToolbarBaseRootSelector(),
+    );
+    roots.forEach((root) =>
+      root.toggleClass("excalidraw-compact-toolbar-enabled", enabled),
+    );
+    if (!enabled) {
+      this.contentEl.removeClass("excalidraw-compact-pen-menu-visible");
+      this.contentEl.removeClass("excalidraw-compact-submenu-shape");
+      this.contentEl.removeClass("excalidraw-compact-submenu-pen");
+      this.contentEl.removeClass("excalidraw-compact-submenu-zoom");
+      this.contentEl.removeClass("excalidraw-compact-submenu-more");
+      this.contentEl.removeClass("excalidraw-compact-floating-actions");
+      this.contentEl.removeClass("excalidraw-compact-selected-actions");
+    }
   }
 
   private getCompactToolbarSelector(selector: string) {
@@ -2675,6 +2697,10 @@ export default class ExcalidrawView
   }
 
   private updateCompactToolbarPenUi(appState?: AppState) {
+    if (DEVICE.isMobile) {
+      this.contentEl.removeClass("excalidraw-compact-pen-menu-visible");
+      return;
+    }
     const currentAppState = appState ?? this.excalidrawAPI?.getAppState();
     const isFreedrawActive = currentAppState?.activeTool?.type === "freedraw";
     this.contentEl.toggleClass(
@@ -2744,6 +2770,11 @@ export default class ExcalidrawView
   }
 
   private setupCompactToolbarSubmenus() {
+    if (DEVICE.isMobile) {
+      this.setCompactToolbarEnabled(false);
+      return;
+    }
+    this.setCompactToolbarEnabled(true);
     if (this.compactToolbarSubmenusInitialized) {
       return;
     }
@@ -2971,6 +3002,7 @@ export default class ExcalidrawView
     };
 
     const selectedActionsTimer = window.setInterval(() => {
+      this.setCompactToolbarEnabled(true);
       this.ensureCompactPenMenu();
       this.updateCompactToolbarPenUi(this.excalidrawAPI?.getAppState());
       this.updateCompactToolbarLayout();
@@ -2996,10 +3028,15 @@ export default class ExcalidrawView
     this.destroyers.push(() => clearPendingClose());
     this.destroyers.push(() => clearPendingPenLongPress());
     this.destroyers.push(() => window.clearInterval(selectedActionsTimer));
+    this.destroyers.push(() => this.setCompactToolbarEnabled(false));
   }
 
   private updateCompactToolbarLayout() {
+    if (DEVICE.isMobile) {
+      return;
+    }
     try {
+      this.setCompactToolbarEnabled(true);
       const wrapper = this.contentEl.querySelector(".excalidraw-wrapper");
       const toolbar = this.queryCompactToolbarElement<HTMLElement>(
         ".FixedSideContainer_side_top.App-top-bar .App-toolbar, .App-toolbar--mobile, .App-toolbar",
@@ -3147,6 +3184,11 @@ export default class ExcalidrawView
   }
 
   private updateCompactSelectedElementActionsPosition() {
+    if (DEVICE.isMobile) {
+      this.contentEl.removeClass("excalidraw-compact-floating-actions");
+      this.contentEl.removeClass("excalidraw-compact-selected-actions");
+      return;
+    }
     try {
       const api = this.excalidrawAPI;
       const appState = api?.getAppState();
