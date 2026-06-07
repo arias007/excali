@@ -4,6 +4,14 @@ A modified Excalidraw plugin for Obsidian.
 
 This repository contains a custom build of the Obsidian Excalidraw plugin, tuned for handwriting notes, image annotation, interactive Markdown import, and a more compact drawing workflow.
 
+## Download
+
+The ready-to-install build is available from the latest GitHub Release:
+
+https://github.com/arias007/excali/releases/latest
+
+Download the ZIP file, unzip it, and place the plugin files into your Obsidian plugin folder.
+
 ## What changed
 
 - Compact top toolbar with common actions grouped in one place.
