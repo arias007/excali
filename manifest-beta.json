@@ -1,7 +1,7 @@
 {
   "id": "obsidian-excalidraw-plugin",
   "name": "excali",
-  "version": "99.23.11",
+  "version": "99.23.12",
   "minAppVersion": "1.8.7",
   "description": "Modified Excalidraw for Obsidian.",
   "author": "Zsolt Viczian",

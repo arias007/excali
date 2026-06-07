@@ -2519,7 +2519,10 @@ export default class ExcalidrawView
     return `${this.getCompactToolbarBaseRootSelector()}.excalidraw-compact-toolbar-enabled`;
   }
 
-  private setCompactToolbarEnabled(enabled: boolean) {
+  private setCompactToolbarEnabled(
+    enabled: boolean,
+    options?: { preservePenMenu?: boolean },
+  ) {
     const roots = this.contentEl.querySelectorAll<HTMLElement>(
       this.getCompactToolbarBaseRootSelector(),
     );
@@ -2527,7 +2530,9 @@ export default class ExcalidrawView
       root.toggleClass("excalidraw-compact-toolbar-enabled", enabled),
     );
     if (!enabled) {
-      this.contentEl.removeClass("excalidraw-compact-pen-menu-visible");
+      if (!options?.preservePenMenu) {
+        this.contentEl.removeClass("excalidraw-compact-pen-menu-visible");
+      }
       this.contentEl.removeClass("excalidraw-compact-submenu-shape");
       this.contentEl.removeClass("excalidraw-compact-submenu-pen");
       this.contentEl.removeClass("excalidraw-compact-submenu-zoom");
@@ -2535,6 +2540,92 @@ export default class ExcalidrawView
       this.contentEl.removeClass("excalidraw-compact-floating-actions");
       this.contentEl.removeClass("excalidraw-compact-selected-actions");
     }
+  }
+
+  private getCompactPenToolElement(): HTMLElement | null {
+    const tools = Array.from(
+      this.contentEl.querySelectorAll<HTMLElement>(
+        '.excalidraw-wrapper [data-testid="toolbar-freedraw"], [data-testid="toolbar-freedraw"]',
+      ),
+    )
+      .map((input) => input.closest<HTMLElement>(".ToolIcon") ?? input)
+      .filter((tool, index, list) => list.indexOf(tool) === index)
+      .filter((tool) => {
+        const rect = tool.getBoundingClientRect();
+        const style = this.ownerWindow?.getComputedStyle(tool);
+        return (
+          rect.width > 0 &&
+          rect.height > 0 &&
+          style?.display !== "none" &&
+          style?.visibility !== "hidden" &&
+          Number(style?.opacity || "1") > 0.01
+        );
+      });
+    return tools[0] ?? null;
+  }
+
+  private updateCompactPenMenuLayout() {
+    const menu = this.contentEl.querySelector<HTMLElement>(
+      ".excalidraw-compact-pen-menu",
+    );
+    const penTool = this.getCompactPenToolElement();
+    if (!menu || !penTool) {
+      return;
+    }
+
+    const wrapperRect =
+      this.contentEl
+        .querySelector(".excalidraw-wrapper")
+        ?.getBoundingClientRect() ?? this.contentEl.getBoundingClientRect();
+    const penToolRect = penTool.getBoundingClientRect();
+    const fixedOriginProbe = this.ownerDocument.createElement("div");
+    fixedOriginProbe.style.cssText =
+      "height:0;left:0;pointer-events:none;position:fixed;top:0;visibility:hidden;width:0;";
+    this.contentEl.appendChild(fixedOriginProbe);
+    const fixedOriginRect = fixedOriginProbe.getBoundingClientRect();
+    fixedOriginProbe.remove();
+
+    const ownerWindow = this.ownerWindow ?? window;
+    const penMenuWidth = this.getCompactToolbarPenMenuWidth();
+    const penMenuHeight = 22;
+    const gap = 5;
+    const minLeft = Math.max(wrapperRect.left + 8, 8);
+    const maxLeft = Math.max(
+      minLeft,
+      Math.min(
+        wrapperRect.right - penMenuWidth - 8,
+        ownerWindow.innerWidth - penMenuWidth - 8,
+      ),
+    );
+    const minTop = Math.max(wrapperRect.top + 8, 8);
+    const maxTop = Math.max(
+      minTop,
+      Math.min(
+        wrapperRect.bottom - penMenuHeight - 8,
+        ownerWindow.innerHeight - penMenuHeight - 8,
+      ),
+    );
+    const preferredLeft =
+      penToolRect.left + penToolRect.width / 2 - penMenuWidth / 2;
+    let preferredTop = penToolRect.bottom + gap;
+    if (preferredTop > maxTop && penToolRect.top - penMenuHeight - gap >= minTop) {
+      preferredTop = penToolRect.top - penMenuHeight - gap;
+    }
+    const penMenuLeft = Math.max(minLeft, Math.min(maxLeft, preferredLeft));
+    const penMenuTop = Math.max(minTop, Math.min(maxTop, preferredTop));
+
+    this.contentEl.style.setProperty(
+      "--excalidraw-compact-pen-menu-left",
+      `${Math.ceil(penMenuLeft - fixedOriginRect.left)}px`,
+    );
+    this.contentEl.style.setProperty(
+      "--excalidraw-compact-pen-menu-top",
+      `${Math.ceil(penMenuTop - fixedOriginRect.top)}px`,
+    );
+    this.contentEl.style.setProperty(
+      "--excalidraw-compact-pen-menu-width",
+      `${penMenuWidth}px`,
+    );
   }
 
   private getCompactToolbarSelector(selector: string) {
@@ -2697,10 +2788,6 @@ export default class ExcalidrawView
   }
 
   private updateCompactToolbarPenUi(appState?: AppState) {
-    if (DEVICE.isMobile) {
-      this.contentEl.removeClass("excalidraw-compact-pen-menu-visible");
-      return;
-    }
     const currentAppState = appState ?? this.excalidrawAPI?.getAppState();
     const isFreedrawActive = currentAppState?.activeTool?.type === "freedraw";
     this.contentEl.toggleClass(
@@ -2741,6 +2828,7 @@ export default class ExcalidrawView
         pen === this.compactToolbarActivePen,
       );
     });
+    this.updateCompactPenMenuLayout();
   }
 
   private applyCompactToolbarPen(pen: CompactToolbarPenId) {
@@ -2771,10 +2859,10 @@ export default class ExcalidrawView
 
   private setupCompactToolbarSubmenus() {
     if (DEVICE.isMobile) {
-      this.setCompactToolbarEnabled(false);
-      return;
+      this.setCompactToolbarEnabled(false, { preservePenMenu: true });
+    } else {
+      this.setCompactToolbarEnabled(true);
     }
-    this.setCompactToolbarEnabled(true);
     if (this.compactToolbarSubmenusInitialized) {
       return;
     }
@@ -3002,7 +3090,9 @@ export default class ExcalidrawView
     };
 
     const selectedActionsTimer = window.setInterval(() => {
-      this.setCompactToolbarEnabled(true);
+      if (!DEVICE.isMobile) {
+        this.setCompactToolbarEnabled(true);
+      }
       this.ensureCompactPenMenu();
       this.updateCompactToolbarPenUi(this.excalidrawAPI?.getAppState());
       this.updateCompactToolbarLayout();
@@ -3033,6 +3123,7 @@ export default class ExcalidrawView
 
   private updateCompactToolbarLayout() {
     if (DEVICE.isMobile) {
+      this.updateCompactPenMenuLayout();
       return;
     }
     try {
@@ -3097,11 +3188,7 @@ export default class ExcalidrawView
         Math.max(92, wrapperRect.right - topBarLeft - 8),
         Math.max(92, Math.ceil(toolbarContentRight - topBarLeft + 1)),
       );
-      const penTool = this.contentEl
-        .querySelector<HTMLElement>(
-          this.getCompactToolbarSelector('[data-testid="toolbar-freedraw"]'),
-        )
-        ?.closest<HTMLElement>(".ToolIcon");
+      const penTool = this.getCompactPenToolElement();
       const penToolRect = penTool?.getBoundingClientRect();
       if (penToolRect) {
         const fixedOriginProbe = this.ownerDocument.createElement("div");
