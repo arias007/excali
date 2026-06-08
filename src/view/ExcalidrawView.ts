@@ -2512,7 +2512,7 @@ export default class ExcalidrawView
   }
 
   private getCompactToolbarBaseRootSelector() {
-    return ".excalidraw-wrapper .excalidraw--tray";
+    return ".excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile)";
   }
 
   private getCompactToolbarRootSelector() {
@@ -2858,11 +2858,7 @@ export default class ExcalidrawView
   }
 
   private setupCompactToolbarSubmenus() {
-    if (DEVICE.isMobile) {
-      this.setCompactToolbarEnabled(false, { preservePenMenu: true });
-    } else {
-      this.setCompactToolbarEnabled(true);
-    }
+    this.setCompactToolbarEnabled(true, { preservePenMenu: DEVICE.isMobile });
     if (this.compactToolbarSubmenusInitialized) {
       return;
     }
@@ -3090,9 +3086,7 @@ export default class ExcalidrawView
     };
 
     const selectedActionsTimer = window.setInterval(() => {
-      if (!DEVICE.isMobile) {
-        this.setCompactToolbarEnabled(true);
-      }
+      this.setCompactToolbarEnabled(true, { preservePenMenu: DEVICE.isMobile });
       this.ensureCompactPenMenu();
       this.updateCompactToolbarPenUi(this.excalidrawAPI?.getAppState());
       this.updateCompactToolbarLayout();
@@ -3121,9 +3115,88 @@ export default class ExcalidrawView
     this.destroyers.push(() => this.setCompactToolbarEnabled(false));
   }
 
+  private updateCompactMobileToolbarLayout() {
+    try {
+      this.setCompactToolbarEnabled(true, { preservePenMenu: true });
+      const wrapper =
+        this.contentEl.querySelector<HTMLElement>(".excalidraw-wrapper") ??
+        this.contentEl;
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const ownerWindow = this.ownerWindow ?? window;
+      const viewportWidth = Math.max(
+        240,
+        Math.min(
+          wrapperRect.width || ownerWindow.innerWidth,
+          ownerWindow.innerWidth,
+        ),
+      );
+      const toolbarLeft = 8;
+      const toolbarTop = 8;
+      const availableToolbarWidth = Math.max(224, viewportWidth - 16);
+      const utilityWidth = Math.min(
+        118,
+        Math.max(92, Math.floor(availableToolbarWidth * 0.3)),
+      );
+      const topbarLeft = toolbarLeft + utilityWidth - 1;
+      const topbarWidth = Math.max(
+        128,
+        Math.floor(viewportWidth - topbarLeft - 8),
+      );
+      const settingsTop = toolbarTop + 30;
+
+      this.contentEl.style.setProperty(
+        "--excalidraw-compact-toolbar-left",
+        `${toolbarLeft}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-compact-toolbar-top",
+        `${toolbarTop}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-compact-toolbar-width",
+        `${utilityWidth}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-compact-topbar-left",
+        `${topbarLeft}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-compact-topbar-top",
+        `${toolbarTop}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-compact-topbar-width",
+        `${topbarWidth}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-compact-zoom-left",
+        "20px",
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-compact-settings-left",
+        `${toolbarLeft}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-compact-settings-top",
+        `${settingsTop}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-compact-settings-max-height",
+        `${Math.max(120, Math.floor(ownerWindow.innerHeight - settingsTop - 8))}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-compact-settings-max-width",
+        `${Math.max(172, Math.floor(viewportWidth - 16))}px`,
+      );
+      this.updateCompactPenMenuLayout();
+    } catch {
+      // Mobile layout refresh is best-effort; CSS defaults keep the toolbar visible.
+    }
+  }
+
   private updateCompactToolbarLayout() {
     if (DEVICE.isMobile) {
-      this.updateCompactPenMenuLayout();
+      this.updateCompactMobileToolbarLayout();
       return;
     }
     try {

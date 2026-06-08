@@ -999,32 +999,32 @@ Obsidian Sheets Plus support
   display: none;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled {
   --default-button-size: 18px !important;
   --default-icon-size: 13px !important;
   --lg-button-size: 18px !important;
   --lg-icon-size: 13px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar {
   align-items: center !important;
   flex-direction: row !important;
   gap: 0 !important;
   height: 22px !important;
-  left: 78px !important;
-  max-width: calc(100% - 94px) !important;
+  left: var(--excalidraw-compact-topbar-left, 78px) !important;
+  max-width: calc(100% - var(--excalidraw-compact-topbar-left, 78px) - 16px) !important;
   right: auto !important;
-  top: 8px !important;
+  top: var(--excalidraw-compact-topbar-top, 8px) !important;
   width: var(--excalidraw-compact-topbar-width, calc(100% - 174px)) !important;
   z-index: 63 !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar section,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .Stack_vertical,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-content,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-content > .Stack_horizontal {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar section,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .Stack_vertical,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-content,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-content > .Stack_horizontal {
   align-items: center !important;
   display: flex !important;
   flex-direction: row !important;
@@ -1036,20 +1036,20 @@ Obsidian Sheets Plus support
   overflow: visible !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .HintViewer {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .HintViewer {
   display: none !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar {
   padding: 1px !important;
   position: relative !important;
   width: auto !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]),
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]),
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]),
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]),
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]),
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]),
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
   display: flex !important;
@@ -1061,27 +1061,27 @@ Obsidian Sheets Plus support
   z-index: 65 !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]) {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]) {
   left: 44px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]) {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]) {
   left: 62px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]) {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]) {
   left: 80px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
   left: 98px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"]) .ToolIcon__icon svg {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"]) .ToolIcon__icon svg {
   opacity: 0 !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"])::before {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"])::before {
   background: currentColor;
   content: "";
   height: 1px;
@@ -1092,7 +1092,7 @@ Obsidian Sheets Plus support
   width: 10px;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"])::after {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"])::after {
   border-right: 1px solid currentColor;
   border-top: 1px solid currentColor;
   content: "";
@@ -1105,10 +1105,10 @@ Obsidian Sheets Plus support
   width: 5px;
 }
 
-.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]),
-.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]),
-.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]),
-.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
+.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]),
+.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]),
+.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]),
+.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
   opacity: 1 !important;
   pointer-events: auto !important;
 }
@@ -1140,14 +1140,14 @@ Obsidian Sheets Plus support
   display: flex;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon svg,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon svg * {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon svg,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon svg * {
   color: var(--excalidraw-compact-active-pen-color, var(--icon-fill-color)) !important;
   stroke: var(--excalidraw-compact-active-pen-color, currentColor) !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]):has(input:checked) .ToolIcon__icon {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]):has(input:checked) .ToolIcon__icon {
   background: color-mix(in srgb, var(--excalidraw-compact-active-pen-color, #111111) 18%, transparent) !important;
 }
 
@@ -1267,15 +1267,15 @@ Obsidian Sheets Plus support
   pointer-events: none;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .App-toolbar__divider {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .App-toolbar__divider {
   display: none !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container {
   position: relative !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon__lock {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon__lock {
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
   display: flex !important;
@@ -1288,12 +1288,12 @@ Obsidian Sheets Plus support
   z-index: 65 !important;
 }
 
-.excalidraw-view.excalidraw-compact-submenu-more .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon__lock {
+.excalidraw-view.excalidraw-compact-submenu-more .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon__lock {
   opacity: 1 !important;
   pointer-events: auto !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container .tray-misc-tools-container {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) {
   align-items: center !important;
   background: transparent !important;
   border: 0 !important;
@@ -1313,11 +1313,11 @@ Obsidian Sheets Plus support
   width: 74px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container .tray-misc-tools-container > *,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container .tray-misc-tools-container .ToolIcon__icon,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container .tray-misc-tools-container .sidebar-trigger,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container .tray-misc-tools-container .default-sidebar-trigger,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container .tray-misc-tools-container .sidebar-trigger__label-element {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) > *,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .ToolIcon__icon,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .sidebar-trigger,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .default-sidebar-trigger,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .sidebar-trigger__label-element {
   background: transparent !important;
   border: 0 !important;
   border-radius: 4px !important;
@@ -1325,14 +1325,14 @@ Obsidian Sheets Plus support
   outline: 0 !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container .tray-misc-tools-container > .ToolIcon.Shape:has([data-testid="toolbar-hand"]) {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) > .ToolIcon.Shape:has([data-testid="toolbar-hand"]) {
   display: none !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon__icon,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .dropdown-menu-button,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .sidebar-trigger__label-element {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon__icon,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .dropdown-menu-button,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .sidebar-trigger__label-element {
   height: 18px !important;
   margin: 0 !important;
   min-height: 18px !important;
@@ -1341,18 +1341,18 @@ Obsidian Sheets Plus support
   width: 18px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon__icon svg,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .dropdown-menu-button svg,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .sidebar-trigger__label-element svg {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon__icon svg,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .dropdown-menu-button svg,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .sidebar-trigger__label-element svg {
   height: 13px !important;
   width: 13px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon__keybinding {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon__keybinding {
   display: none !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar {
   align-items: center !important;
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.93)) !important;
   bottom: auto !important;
@@ -1362,32 +1362,58 @@ Obsidian Sheets Plus support
   flex-wrap: nowrap !important;
   gap: 0 !important;
   height: 22px !important;
-  left: 8px !important;
+  left: var(--excalidraw-compact-toolbar-left, 8px) !important;
   max-height: 22px !important;
   max-width: calc(100% - 16px) !important;
   overflow: visible !important;
   right: auto !important;
   border-radius: 8px !important;
-  top: 8px !important;
+  top: var(--excalidraw-compact-toolbar-top, 8px) !important;
   transform: none !important;
   width: var(--excalidraw-compact-toolbar-width, auto) !important;
   z-index: 62 !important;
   justify-content: flex-start !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .Island,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .tray-misc-tools-container,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container) {
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar {
+  background-color: var(--island-bg-color, rgba(255, 255, 255, 0.93)) !important;
+  border-radius: 0 8px 8px 0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+  box-sizing: border-box !important;
+  margin-top: 0 !important;
+  overflow: visible !important;
+  position: fixed !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-compact-toolbar-enabled .App-bottom-bar {
+  border-radius: 8px 0 0 8px !important;
+  box-sizing: border-box !important;
+  min-width: var(--excalidraw-compact-toolbar-width, 92px) !important;
+  position: fixed !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) {
+  min-width: 88px !important;
+  width: 88px !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions {
+  left: var(--excalidraw-compact-zoom-left, 20px) !important;
+}
+
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .Island,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled :is(.tray-misc-tools-container, .mobile-misc-tools-container),
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container) {
   background: transparent !important;
   box-shadow: none !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container),
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content > div:not(.dropdown-menu-container),
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions > .Stack_horizontal {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container),
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content > div:not(.dropdown-menu-container),
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions > .Stack_horizontal {
   align-items: center !important;
   display: flex !important;
   flex-direction: row !important;
@@ -1400,7 +1426,7 @@ Obsidian Sheets Plus support
   width: auto !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container) {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container) {
   flex: 0 0 auto !important;
   margin: 0 !important;
   padding: 1px !important;
@@ -1408,7 +1434,7 @@ Obsidian Sheets Plus support
   width: auto !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .App-tray-menu {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar :is(.App-tray-menu, .App-mobile-menu) {
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   border-radius: 8px !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14) !important;
@@ -1426,31 +1452,31 @@ Obsidian Sheets Plus support
   z-index: 66 !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .App-tray-menu .selected-shape-actions {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar :is(.App-tray-menu, .App-mobile-menu) .selected-shape-actions {
   max-height: none !important;
   overflow: visible !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:has(.zoom-actions) {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:has(.zoom-actions) {
   position: static !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content > .ToolIcon__icon:empty {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content > .ToolIcon__icon:empty {
   display: none !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon__icon,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon_type_button,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-button {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon__icon,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon_type_button,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-button {
   height: 18px !important;
   min-height: 18px !important;
   min-width: 18px !important;
   width: 18px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
   display: flex !important;
@@ -1462,15 +1488,15 @@ Obsidian Sheets Plus support
   z-index: 65 !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button {
   right: 36px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
   left: 36px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions {
   background: transparent !important;
   box-shadow: none !important;
   border-radius: 0 !important;
@@ -1480,13 +1506,13 @@ Obsidian Sheets Plus support
   top: 1px !important;
 }
 
-.excalidraw-view.excalidraw-compact-submenu-zoom .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button,
-.excalidraw-view.excalidraw-compact-submenu-zoom .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
+.excalidraw-view.excalidraw-compact-submenu-zoom .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button,
+.excalidraw-view.excalidraw-compact-submenu-zoom .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
   opacity: 1 !important;
   pointer-events: auto !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .reset-zoom-button {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .reset-zoom-button {
   background: transparent !important;
   box-shadow: none !important;
   border-radius: 4px !important;
@@ -1496,12 +1522,12 @@ Obsidian Sheets Plus support
   width: 36px !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .main-menu-trigger {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .main-menu-trigger {
   background: transparent !important;
   box-shadow: none !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container {
   align-items: stretch !important;
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   border-radius: 8px !important;
@@ -1517,7 +1543,7 @@ Obsidian Sheets Plus support
   z-index: 110 !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .dropdown-menu {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .dropdown-menu {
   align-items: stretch !important;
   display: flex !important;
   flex-direction: column !important;
@@ -1531,8 +1557,8 @@ Obsidian Sheets Plus support
   width: 100% !important;
 }
 
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .dropdown-menu-item,
-.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .radix-menu-item {
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .dropdown-menu-item,
+.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .radix-menu-item {
   align-items: center !important;
   display: flex !important;
   flex: 0 0 auto !important;
@@ -1545,12 +1571,12 @@ Obsidian Sheets Plus support
   width: 100% !important;
 }
 
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="编辑"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Edit"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="复制"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Duplicate"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="删除"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Delete"] {
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="编辑"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Edit"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="复制"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Duplicate"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="删除"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Delete"] {
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   border-radius: 4px !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.13) !important;
@@ -1561,18 +1587,18 @@ Obsidian Sheets Plus support
   z-index: 68 !important;
 }
 
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="编辑"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Edit"] {
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="编辑"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Edit"] {
   left: var(--excalidraw-selected-actions-left, 8px) !important;
 }
 
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="复制"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Duplicate"] {
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="复制"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Duplicate"] {
   left: calc(var(--excalidraw-selected-actions-left, 8px) + 20px) !important;
 }
 
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="删除"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Delete"] {
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="删除"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Delete"] {
   left: calc(var(--excalidraw-selected-actions-left, 8px) + 40px) !important;
 }
 
