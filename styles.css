@@ -346,7 +346,7 @@ textarea.excalidraw-wysiwyg {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-  border-radius: 0;  
+  border-radius: 0;
 }
 
 .is-tablet .excalidraw button,
@@ -679,7 +679,7 @@ img.excalidraw-cropped-pdfpage,
   opacity: 0;
 }
 
-.popover .excalidraw-svg {  
+.popover .excalidraw-svg {
   width: 100%;
   max-width: inherit;
   height: 100%;
@@ -999,14 +999,14 @@ Obsidian Sheets Plus support
   display: none;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled {
   --default-button-size: 18px !important;
   --default-icon-size: 13px !important;
   --lg-button-size: 18px !important;
   --lg-icon-size: 13px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar {
   align-items: center !important;
   flex-direction: row !important;
   gap: 0 !important;
@@ -1019,12 +1019,12 @@ Obsidian Sheets Plus support
   z-index: 63 !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar section,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .Stack_vertical,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-content,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-content > .Stack_horizontal {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar section,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .Stack_vertical,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-content,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-content > .Stack_horizontal {
   align-items: center !important;
   display: flex !important;
   flex-direction: row !important;
@@ -1036,20 +1036,20 @@ Obsidian Sheets Plus support
   overflow: visible !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .HintViewer {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .HintViewer {
   display: none !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar {
   padding: 1px !important;
   position: relative !important;
   width: auto !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]),
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]),
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]),
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]),
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]),
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]),
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
   display: flex !important;
@@ -1061,27 +1061,27 @@ Obsidian Sheets Plus support
   z-index: 65 !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]) {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]) {
   left: 44px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]) {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]) {
   left: 62px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]) {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]) {
   left: 80px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
   left: 98px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"]) .ToolIcon__icon svg {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"]) .ToolIcon__icon svg {
   opacity: 0 !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"])::before {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"])::before {
   background: currentColor;
   content: "";
   height: 1px;
@@ -1092,7 +1092,7 @@ Obsidian Sheets Plus support
   width: 10px;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"])::after {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"])::after {
   border-right: 1px solid currentColor;
   border-top: 1px solid currentColor;
   content: "";
@@ -1105,10 +1105,10 @@ Obsidian Sheets Plus support
   width: 5px;
 }
 
-.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]),
-.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]),
-.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]),
-.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
+.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]),
+.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]),
+.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]),
+.excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
   opacity: 1 !important;
   pointer-events: auto !important;
 }
@@ -1140,14 +1140,56 @@ Obsidian Sheets Plus support
   display: flex;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon svg,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon svg * {
+.is-mobile .excalidraw-view .excalidraw-compact-pen-menu,
+.is-mobile .excalidraw-wrapper .excalidraw-compact-pen-menu {
+  gap: 2px;
+  height: 20px;
+  min-width: var(--excalidraw-compact-pen-menu-width, 56px);
+  padding: 2px;
+  width: var(--excalidraw-compact-pen-menu-width, auto);
+  z-index: 72;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw-compact-pen-option,
+.is-mobile .excalidraw-compact-pen-option,
+.is-mobile .excalidraw-wrapper .excalidraw-compact-pen-add,
+.is-mobile .excalidraw-compact-pen-add {
+  flex-basis: 16px;
+  height: 16px;
+  min-height: 16px;
+  min-width: 16px;
+  width: 16px;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw-compact-pen-option::before,
+.is-mobile .excalidraw-compact-pen-option::before {
+  left: 3px;
+  top: 7px;
+  width: 10px;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw-compact-pen-option::after,
+.is-mobile .excalidraw-compact-pen-option::after {
+  left: 2px;
+  top: 10px;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw-compact-pen-add::before,
+.is-mobile .excalidraw-wrapper .excalidraw-compact-pen-add::after,
+.is-mobile .excalidraw-compact-pen-add::before,
+.is-mobile .excalidraw-compact-pen-add::after {
+  left: 4px;
+  top: 7.5px;
+}
+
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon svg,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon svg * {
   color: var(--excalidraw-compact-active-pen-color, var(--icon-fill-color)) !important;
   stroke: var(--excalidraw-compact-active-pen-color, currentColor) !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]):has(input:checked) .ToolIcon__icon {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]):has(input:checked) .ToolIcon__icon {
   background: color-mix(in srgb, var(--excalidraw-compact-active-pen-color, #111111) 18%, transparent) !important;
 }
 
@@ -1267,15 +1309,15 @@ Obsidian Sheets Plus support
   pointer-events: none;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar .App-toolbar__divider {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar .App-toolbar__divider {
   display: none !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container {
   position: relative !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon__lock {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon__lock {
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
   display: flex !important;
@@ -1288,12 +1330,12 @@ Obsidian Sheets Plus support
   z-index: 65 !important;
 }
 
-.excalidraw-view.excalidraw-compact-submenu-more .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon__lock {
+.excalidraw-view.excalidraw-compact-submenu-more .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon__lock {
   opacity: 1 !important;
   pointer-events: auto !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) {
   align-items: center !important;
   background: transparent !important;
   border: 0 !important;
@@ -1313,11 +1355,11 @@ Obsidian Sheets Plus support
   width: 74px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) > *,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .ToolIcon__icon,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .sidebar-trigger,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .default-sidebar-trigger,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .sidebar-trigger__label-element {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) > *,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .ToolIcon__icon,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .sidebar-trigger,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .default-sidebar-trigger,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) .sidebar-trigger__label-element {
   background: transparent !important;
   border: 0 !important;
   border-radius: 4px !important;
@@ -1325,14 +1367,14 @@ Obsidian Sheets Plus support
   outline: 0 !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) > .ToolIcon.Shape:has([data-testid="toolbar-hand"]) {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) > .ToolIcon.Shape:has([data-testid="toolbar-hand"]) {
   display: none !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon__icon,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .dropdown-menu-button,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .sidebar-trigger__label-element {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon__icon,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .dropdown-menu-button,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .sidebar-trigger__label-element {
   height: 18px !important;
   margin: 0 !important;
   min-height: 18px !important;
@@ -1341,18 +1383,18 @@ Obsidian Sheets Plus support
   width: 18px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon__icon svg,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .dropdown-menu-button svg,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .sidebar-trigger__label-element svg {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon__icon svg,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .dropdown-menu-button svg,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .sidebar-trigger__label-element svg {
   height: 13px !important;
   width: 13px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .ToolIcon__keybinding {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .ToolIcon__keybinding {
   display: none !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar {
   align-items: center !important;
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.93)) !important;
   bottom: auto !important;
@@ -1375,45 +1417,566 @@ Obsidian Sheets Plus support
   justify-content: flex-start !important;
 }
 
-.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar {
-  background-color: var(--island-bg-color, rgba(255, 255, 255, 0.93)) !important;
-  border-radius: 0 8px 8px 0 !important;
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled {
+  --default-button-size: 18px !important;
+  --default-icon-size: 13px !important;
+  --lg-button-size: 18px !important;
+  --lg-icon-size: 13px !important;
+  --mobile-action-button-size: 18px !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-toolbar-booting .excalidraw-wrapper .excalidraw--mobile :is(.FixedSideContainer_side_top, .App-toolbar-container, .App-toolbar, .App-bottom-bar, .mobile-misc-tools-container, .tray-misc-tools-container, .mobile-shape-actions) {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled::before {
+  background-color: var(--island-bg-color, rgba(255, 255, 255, 0.94));
+  border: 1px solid var(--default-border-color, rgba(0, 0, 0, 0.08));
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.13);
+  box-sizing: border-box;
+  content: "";
+  height: var(--excalidraw-mobile-compact-height, 24px);
+  left: var(--excalidraw-mobile-compact-left, 4px);
+  pointer-events: none;
+  position: fixed;
+  top: var(--excalidraw-mobile-compact-top, 56px);
+  width: var(--excalidraw-mobile-compact-width, calc(100vw - 8px));
+  z-index: 61;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar section,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .Stack_vertical,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar-container,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar-content,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar-content > .Stack_horizontal,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled :is(.mobile-misc-tools-container, .tray-misc-tools-container) {
+  align-items: center !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0 !important;
+  height: 21px !important;
+  max-height: 21px !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .HintViewer {
+  display: none !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar {
+  background: transparent !important;
+  bottom: auto !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  left: var(--excalidraw-mobile-topbar-left, 6px) !important;
+  margin: 0 !important;
+  max-width: var(--excalidraw-mobile-topbar-width, 58px) !important;
+  overflow: visible !important;
+  padding: 1px !important;
+  pointer-events: auto !important;
+  position: fixed !important;
+  right: auto !important;
+  top: var(--excalidraw-mobile-topbar-top, 58px) !important;
+  transform: none !important;
+  visibility: visible !important;
+  width: var(--excalidraw-mobile-topbar-width, 58px) !important;
+  z-index: 65 !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .App-toolbar-content {
+  justify-content: flex-start !important;
+  width: auto !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar :is(.excalidraw-ui-top-left, .excalidraw-ui-top-right, .library-and-pen) {
+  align-items: center !important;
+  display: flex !important;
+  flex: 0 0 auto !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0 !important;
+  height: 19px !important;
+  margin: 0 !important;
+  max-height: 19px !important;
+  min-width: 0 !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  width: auto !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .Island,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .ToolIcon,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .ToolIcon__icon,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .ToolIcon_type_button,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .dropdown-menu-button,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar button,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .mobile-misc-tools-container,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .tray-misc-tools-container,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .mobile-misc-tools-container *,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .tray-misc-tools-container * {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 1px !important;
+  position: relative !important;
+  width: auto !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .ToolIcon,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .ToolIcon__icon,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .ToolIcon_type_button,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .dropdown-menu-button,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .sidebar-trigger__label-element,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled button.standalone {
+  flex: 0 0 18px !important;
+  height: 18px !important;
+  margin: 0 !important;
+  min-height: 18px !important;
+  min-width: 18px !important;
+  padding: 0 !important;
+  width: 18px !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .ToolIcon__icon svg,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .dropdown-menu-button svg,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .sidebar-trigger__label-element svg,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled button.standalone svg {
+  height: 13px !important;
+  width: 13px !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .ToolIcon__keybinding {
+  display: none !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .App-toolbar__divider {
+  display: none !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]),
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]),
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]),
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
+  background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+  display: flex !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: fixed !important;
+  top: var(--excalidraw-mobile-shape-menu-top, 82px) !important;
+  transition: opacity 0.08s ease !important;
+  z-index: 73 !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]) {
+  left: var(--excalidraw-mobile-shape-menu-left, 42px) !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]) {
+  left: calc(var(--excalidraw-mobile-shape-menu-left, 42px) + 18px) !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]) {
+  left: calc(var(--excalidraw-mobile-shape-menu-left, 42px) + 36px) !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
+  left: calc(var(--excalidraw-mobile-shape-menu-left, 42px) + 54px) !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-rectangle"]),
+.is-mobile .excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-diamond"]),
+.is-mobile .excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-ellipse"]),
+.is-mobile .excalidraw-view.excalidraw-compact-submenu-shape .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-arrow"]) {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"]) .ToolIcon__icon svg {
+  opacity: 0 !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"])::before {
+  background: currentColor;
+  content: "";
+  height: 1px;
+  left: 4px;
+  opacity: 0.72;
+  position: absolute;
+  top: 8.5px;
+  width: 9px;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-line"])::after {
+  border-right: 1px solid currentColor;
+  border-top: 1px solid currentColor;
+  content: "";
+  height: 5px;
+  opacity: 0.72;
+  position: absolute;
+  right: 4px;
+  top: 6px;
+  transform: rotate(45deg);
+  width: 5px;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon svg,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]) .ToolIcon__icon svg * {
+  color: var(--excalidraw-compact-active-pen-color, var(--icon-fill-color)) !important;
+  stroke: var(--excalidraw-compact-active-pen-color, currentColor) !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-toolbar .ToolIcon:has([data-testid="toolbar-freedraw"]):has(input:checked) .ToolIcon__icon {
+  background: color-mix(in srgb, var(--excalidraw-compact-active-pen-color, #111111) 18%, transparent) !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .mobile-misc-tools-container,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .tray-misc-tools-container {
+  align-items: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 0 !important;
+  height: 21px !important;
+  left: var(--excalidraw-mobile-topbar-left, 6px) !important;
+  margin: 0 !important;
+  max-width: var(--excalidraw-mobile-topbar-width, 58px) !important;
+  overflow: visible !important;
+  padding: 1px !important;
+  position: fixed !important;
+  right: auto !important;
+  top: var(--excalidraw-mobile-topbar-top, 58px) !important;
+  transform: none !important;
+  width: var(--excalidraw-mobile-topbar-width, 58px) !important;
+  z-index: 65 !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .mobile-misc-tools-container > *,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .tray-misc-tools-container > *,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .mobile-misc-tools-container :is(.Island, .ToolIcon, .ToolIcon_type_button, .ToolIcon__icon, .dropdown-menu-button, button, .sidebar-trigger, .sidebar-trigger__label-element, .default-sidebar-trigger),
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .tray-misc-tools-container :is(.Island, .ToolIcon, .ToolIcon_type_button, .ToolIcon__icon, .dropdown-menu-button, button, .sidebar-trigger, .sidebar-trigger__label-element, .default-sidebar-trigger),
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .mobile-misc-tools-container .ToolIcon__icon,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .tray-misc-tools-container .ToolIcon__icon,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .mobile-misc-tools-container .sidebar-trigger,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .tray-misc-tools-container .sidebar-trigger,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .mobile-misc-tools-container .default-sidebar-trigger,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .tray-misc-tools-container .default-sidebar-trigger {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled :is(.FixedSideContainer_side_top.App-top-bar, .mobile-misc-tools-container, .tray-misc-tools-container) :is(.Island, .ToolIcon, .ToolIcon_type_button, .ToolIcon__icon, .dropdown-menu-button, button, .sidebar-trigger, .sidebar-trigger__label-element, .default-sidebar-trigger) {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .mobile-misc-tools-container > .ToolIcon.Shape:has([data-testid="toolbar-hand"]),
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .tray-misc-tools-container > .ToolIcon.Shape:has([data-testid="toolbar-hand"]) {
+  display: none !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .ToolIcon__lock {
+  background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+  display: flex !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: 21px !important;
+  transition: opacity 0.08s ease !important;
+  z-index: 67 !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-submenu-more .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .ToolIcon__lock {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar {
+  align-items: center !important;
+  background: transparent !important;
+  bottom: auto !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0 !important;
+  height: 21px !important;
+  justify-content: center !important;
+  left: var(--excalidraw-mobile-bottom-bar-left, var(--excalidraw-mobile-compact-left, 4px)) !important;
+  margin: 0 !important;
+  max-height: 21px !important;
+  max-width: var(--excalidraw-mobile-bottom-bar-width, calc(var(--excalidraw-mobile-compact-width, calc(100vw - 8px)) - 58px)) !important;
+  overflow: visible !important;
+  padding: 1px !important;
+  pointer-events: none !important;
+  position: fixed !important;
+  right: auto !important;
+  top: var(--excalidraw-mobile-compact-row-two-top, 58px) !important;
+  transform: none !important;
+  width: var(--excalidraw-mobile-bottom-bar-width, auto) !important;
+  z-index: 64 !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container),
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .App-toolbar,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content > div:not(.dropdown-menu-container),
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .zoom-actions,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .zoom-actions > .Stack_horizontal,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .undo-redo-buttons {
+  align-items: center !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0 !important;
+  height: 19px !important;
+  margin: 0 !important;
+  max-height: 19px !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  pointer-events: var(--ui-pointerEvents) !important;
+  width: auto !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content {
+  justify-content: center !important;
+  flex-direction: row !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .mobile-shape-actions {
+  align-items: center !important;
+  display: flex !important;
+  flex: 0 0 auto !important;
+  height: 19px !important;
+  margin: 0 !important;
+  max-height: 19px !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  pointer-events: var(--ui-pointerEvents) !important;
+  position: relative !important;
+  width: auto !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .mobile-shape-actions > div:first-child {
+  align-items: center !important;
+  background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
+  border-radius: 7px !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
   box-sizing: border-box !important;
-  margin-top: 0 !important;
-  overflow: visible !important;
+  display: flex !important;
+  flex: 0 0 auto !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 2px !important;
+  height: 20px !important;
+  justify-content: flex-start !important;
+  left: var(--excalidraw-mobile-style-actions-left, 6px) !important;
+  margin: 0 !important;
+  max-height: 20px !important;
+  max-width: var(--excalidraw-mobile-style-actions-max-width, calc(100vw - 12px)) !important;
+  min-width: 0 !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding: 2px !important;
+  pointer-events: var(--ui-pointerEvents) !important;
   position: fixed !important;
+  right: auto !important;
+  scrollbar-width: none !important;
+  top: var(--excalidraw-mobile-style-actions-top, 50px) !important;
+  transform: none !important;
+  width: max-content !important;
+  z-index: 73 !important;
 }
 
-.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-compact-toolbar-enabled .App-bottom-bar {
-  border-radius: 8px 0 0 8px !important;
-  box-sizing: border-box !important;
-  min-width: var(--excalidraw-compact-toolbar-width, 92px) !important;
-  position: fixed !important;
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .mobile-shape-actions > div:first-child::-webkit-scrollbar {
+  display: none !important;
 }
 
-.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-compact-toolbar-enabled .App-toolbar-container :is(.tray-misc-tools-container, .mobile-misc-tools-container) {
-  min-width: 88px !important;
-  width: 88px !important;
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .mobile-shape-actions > div:first-child:empty {
+  display: none !important;
 }
 
-.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions {
-  left: var(--excalidraw-compact-zoom-left, 20px) !important;
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .mobile-shape-actions > div:first-child .compact-action-item {
+  flex: 0 0 18px !important;
+  height: 18px !important;
+  margin: 0 !important;
+  max-height: 18px !important;
+  min-height: 18px !important;
+  min-width: 18px !important;
+  padding: 0 !important;
+  width: 18px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .Island,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled :is(.tray-misc-tools-container, .mobile-misc-tools-container),
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container) {
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .mobile-shape-actions > div:first-child .compact-action-item :is(button, label, .ToolIcon__icon, .color-picker__button) {
+  flex: 0 0 18px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  min-width: 18px !important;
+  padding: 0 !important;
+  width: 18px !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .mobile-shape-actions > div:first-child .compact-action-item svg {
+  height: 13px !important;
+  width: 13px !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .mobile-shape-actions > div:last-child {
+  align-items: center !important;
+  display: flex !important;
+  flex: 0 0 auto !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0 !important;
+  height: 19px !important;
+  margin: 0 !important;
+  max-height: 19px !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .mobile-shape-actions > div:last-child .compact-action-item {
+  flex: 0 0 18px !important;
+  height: 18px !important;
+  margin: 0 !important;
+  min-height: 18px !important;
+  min-width: 18px !important;
+  padding: 0 !important;
+  width: 18px !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .properties-content {
+  max-width: min(13rem, calc(100vw - 12px)) !important;
+  z-index: 74 !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container) {
+  border: 0 !important;
+  flex: 0 0 auto !important;
+  position: relative !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content > .ToolIcon__icon:empty {
+  display: none !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .zoom-actions {
+  position: relative !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .zoom-out-button,
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
+  background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+  display: flex !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  top: 21px !important;
+  transition: opacity 0.08s ease !important;
+  z-index: 67 !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .zoom-out-button {
+  right: 32px !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
+  left: 32px !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-submenu-zoom .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .zoom-out-button,
+.is-mobile .excalidraw-view.excalidraw-compact-submenu-zoom .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .reset-zoom-button {
+  background: transparent !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  font-size: 9px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+  width: 30px !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar .main-menu-trigger {
   background: transparent !important;
   box-shadow: none !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container),
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content > div:not(.dropdown-menu-container),
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions > .Stack_horizontal {
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled :is(.App-tray-menu, .App-mobile-menu) {
+  background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14) !important;
+  box-sizing: border-box !important;
+  height: auto !important;
+  left: var(--excalidraw-compact-settings-left, 4px) !important;
+  margin: 0 !important;
+  max-height: var(--excalidraw-compact-settings-max-height, calc(100vh - 52px)) !important;
+  max-width: var(--excalidraw-compact-settings-max-width, calc(100vw - 8px)) !important;
+  min-height: 0 !important;
+  min-width: min(220px, calc(100vw - 8px)) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  padding: 8px !important;
+  position: fixed !important;
+  top: var(--excalidraw-compact-settings-top, 38px) !important;
+  transform: none !important;
+  width: max-content !important;
+  z-index: 68 !important;
+}
+
+.is-mobile .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled :is(.App-tray-menu, .App-mobile-menu) .selected-shape-actions {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .FixedSideContainer_side_top.App-top-bar .Island,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled :is(.tray-misc-tools-container, .mobile-misc-tools-container),
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container),
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content > div:not(.dropdown-menu-container),
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions > .Stack_horizontal {
   align-items: center !important;
   display: flex !important;
   flex-direction: row !important;
@@ -1426,7 +1989,7 @@ Obsidian Sheets Plus support
   width: auto !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container) {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:not(.dropdown-menu-container) {
   flex: 0 0 auto !important;
   margin: 0 !important;
   padding: 1px !important;
@@ -1434,13 +1997,16 @@ Obsidian Sheets Plus support
   width: auto !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar :is(.App-tray-menu, .App-mobile-menu) {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar :is(.App-tray-menu, .App-mobile-menu) {
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   border-radius: 8px !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14) !important;
+  box-sizing: border-box !important;
+  height: auto !important;
   left: var(--excalidraw-compact-settings-left, 16px) !important;
   max-height: var(--excalidraw-compact-settings-max-height, calc(100vh - 150px)) !important;
   max-width: var(--excalidraw-compact-settings-max-width, 360px) !important;
+  min-height: 0 !important;
   min-width: 172px !important;
   overflow-x: hidden !important;
   overflow-y: auto !important;
@@ -1452,31 +2018,31 @@ Obsidian Sheets Plus support
   z-index: 66 !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar :is(.App-tray-menu, .App-mobile-menu) .selected-shape-actions {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar :is(.App-tray-menu, .App-mobile-menu) .selected-shape-actions {
   max-height: none !important;
   overflow: visible !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:has(.zoom-actions) {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .Island:has(.zoom-actions) {
   position: static !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content > .ToolIcon__icon:empty {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .App-toolbar-content > .ToolIcon__icon:empty {
   display: none !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon__icon,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon_type_button,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-button {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon__icon,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .ToolIcon_type_button,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-button {
   height: 18px !important;
   min-height: 18px !important;
   min-width: 18px !important;
   width: 18px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
   display: flex !important;
@@ -1488,15 +2054,15 @@ Obsidian Sheets Plus support
   z-index: 65 !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button {
   right: 36px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
   left: 36px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-actions {
   background: transparent !important;
   box-shadow: none !important;
   border-radius: 0 !important;
@@ -1506,13 +2072,13 @@ Obsidian Sheets Plus support
   top: 1px !important;
 }
 
-.excalidraw-view.excalidraw-compact-submenu-zoom .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button,
-.excalidraw-view.excalidraw-compact-submenu-zoom .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
+.excalidraw-view.excalidraw-compact-submenu-zoom .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-out-button,
+.excalidraw-view.excalidraw-compact-submenu-zoom .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .zoom-in-button {
   opacity: 1 !important;
   pointer-events: auto !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .reset-zoom-button {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .reset-zoom-button {
   background: transparent !important;
   box-shadow: none !important;
   border-radius: 4px !important;
@@ -1522,12 +2088,12 @@ Obsidian Sheets Plus support
   width: 36px !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .main-menu-trigger {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .main-menu-trigger {
   background: transparent !important;
   box-shadow: none !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container {
   align-items: stretch !important;
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   border-radius: 8px !important;
@@ -1543,7 +2109,7 @@ Obsidian Sheets Plus support
   z-index: 110 !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .dropdown-menu {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .dropdown-menu {
   align-items: stretch !important;
   display: flex !important;
   flex-direction: column !important;
@@ -1557,8 +2123,8 @@ Obsidian Sheets Plus support
   width: 100% !important;
 }
 
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .dropdown-menu-item,
-.excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .radix-menu-item {
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .dropdown-menu-item,
+.excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar .dropdown-menu-container .radix-menu-item {
   align-items: center !important;
   display: flex !important;
   flex: 0 0 auto !important;
@@ -1571,12 +2137,12 @@ Obsidian Sheets Plus support
   width: 100% !important;
 }
 
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="编辑"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Edit"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="复制"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Duplicate"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="删除"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Delete"] {
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="编辑"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Edit"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="复制"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Duplicate"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="删除"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Delete"] {
   background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
   border-radius: 4px !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.13) !important;
@@ -1587,18 +2153,140 @@ Obsidian Sheets Plus support
   z-index: 68 !important;
 }
 
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="编辑"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Edit"] {
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="编辑"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Edit"] {
   left: var(--excalidraw-selected-actions-left, 8px) !important;
 }
 
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="复制"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Duplicate"] {
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="复制"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Duplicate"] {
   left: calc(var(--excalidraw-selected-actions-left, 8px) + 20px) !important;
 }
 
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="删除"],
-.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile).excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Delete"] {
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="删除"],
+.excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--tray.excalidraw-compact-toolbar-enabled .App-bottom-bar button[aria-label="Delete"] {
+  left: calc(var(--excalidraw-selected-actions-left, 8px) + 40px) !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="编辑"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="Edit"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="复制"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="Duplicate"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="删除"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="Delete"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="编辑"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="Edit"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="复制"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="Duplicate"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="删除"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="Delete"] {
+  align-items: center !important;
+  background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.13) !important;
+  display: flex !important;
+  height: 18px !important;
+  justify-content: center !important;
+  min-height: 18px !important;
+  min-width: 18px !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  position: fixed !important;
+  top: var(--excalidraw-selected-actions-top, 58px) !important;
+  visibility: visible !important;
+  width: 18px !important;
+  z-index: 69 !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="编辑"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="Edit"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="编辑"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="Edit"] {
+  left: var(--excalidraw-selected-actions-left, 8px) !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="复制"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="Duplicate"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="复制"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="Duplicate"] {
+  left: calc(var(--excalidraw-selected-actions-left, 8px) + 20px) !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="删除"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-bottom-bar button[aria-label="Delete"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="删除"],
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled .App-mobile-menu button[aria-label="Delete"] {
+  left: calc(var(--excalidraw-selected-actions-left, 8px) + 40px) !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled :is(.App-bottom-bar, .App-mobile-menu) button:is(
+  [aria-label*="编辑"],
+  [aria-label*="Edit"],
+  [aria-label*="edit"],
+  [title*="编辑"],
+  [title*="Edit"],
+  [title*="edit"],
+  [aria-label*="复制"],
+  [aria-label*="Duplicate"],
+  [aria-label*="duplicate"],
+  [title*="复制"],
+  [title*="Duplicate"],
+  [title*="duplicate"],
+  [aria-label*="删除"],
+  [aria-label*="Delete"],
+  [aria-label*="delete"],
+  [title*="删除"],
+  [title*="Delete"],
+  [title*="delete"]
+) {
+  align-items: center !important;
+  background-color: var(--island-bg-color, rgba(255, 255, 255, 0.96)) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.13) !important;
+  display: flex !important;
+  height: 18px !important;
+  justify-content: center !important;
+  min-height: 18px !important;
+  min-width: 18px !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  position: fixed !important;
+  top: var(--excalidraw-selected-actions-top, 58px) !important;
+  visibility: visible !important;
+  width: 18px !important;
+  z-index: 69 !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled :is(.App-bottom-bar, .App-mobile-menu) button:is(
+  [aria-label*="编辑"],
+  [aria-label*="Edit"],
+  [aria-label*="edit"],
+  [title*="编辑"],
+  [title*="Edit"],
+  [title*="edit"]
+) {
+  left: var(--excalidraw-selected-actions-left, 8px) !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled :is(.App-bottom-bar, .App-mobile-menu) button:is(
+  [aria-label*="复制"],
+  [aria-label*="Duplicate"],
+  [aria-label*="duplicate"],
+  [title*="复制"],
+  [title*="Duplicate"],
+  [title*="duplicate"]
+) {
+  left: calc(var(--excalidraw-selected-actions-left, 8px) + 20px) !important;
+}
+
+.is-mobile .excalidraw-view.excalidraw-compact-floating-actions .excalidraw-wrapper .excalidraw--mobile.excalidraw-mobile-compact-toolbar-enabled :is(.App-bottom-bar, .App-mobile-menu) button:is(
+  [aria-label*="删除"],
+  [aria-label*="Delete"],
+  [aria-label*="delete"],
+  [title*="删除"],
+  [title*="Delete"],
+  [title*="delete"]
+) {
   left: calc(var(--excalidraw-selected-actions-left, 8px) + 40px) !important;
 }
 

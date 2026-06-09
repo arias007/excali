@@ -1,6 +1,6 @@
 {
   "name": "excali",
-  "version": "99.23.13",
+  "version": "99.23.21",
   "description": "Modified Excalidraw for Obsidian",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

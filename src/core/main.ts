@@ -68,7 +68,6 @@ import {
   getFontDataURL,
   errorlog,
   sleep,
-  isVersionNewerThanOther,
   isCallerFromTemplaterPlugin,
   versionUpdateCheckTimer,
   getFontMetrics,
@@ -88,7 +87,6 @@ import {
   legacyExcalidrawPopoverObserver,
 } from "./managers/MarkdownPostProcessor";
 import { FieldSuggester } from "../shared/Suggesters/FieldSuggester";
-import { ReleaseNotes } from "../shared/Dialogs/ReleaseNotes";
 import { DeviceType, Packages } from "../types/types";
 import { RemoteDirectoryInfo } from "../types/githubTypes";
 import { PaneTarget, PreviewImageType } from "../types/utilTypes";
@@ -937,30 +935,22 @@ export default class ExcalidrawPlugin extends Plugin {
     this.logStartupEvent("Switched to Excalidraw views");
 
     try {
-      if (this.settings.showReleaseNotes) {
-        //I am repurposing imageElementNotice, if the value is true, this means the plugin was just newly installed to Obsidian.
-        const obsidianJustInstalled =
-          this.settings.previousRelease === "0.0.0" ||
-          !this.settings.previousRelease;
-
-        if (
-          isVersionNewerThanOther(
-            PLUGIN_VERSION,
-            this.settings.previousRelease ?? "0.0.0",
-          )
-        ) {
-          new ReleaseNotes(
-            this.app,
-            this,
-            obsidianJustInstalled ? null : PLUGIN_VERSION,
-          ).open();
-        }
+      if (
+        this.settings.showReleaseNotes ||
+        this.settings.previousRelease !== PLUGIN_VERSION ||
+        this.settings.compareManifestToPluginVersion ||
+        this.settings.showNewVersionNotification
+      ) {
+        this.settings.showReleaseNotes = false;
+        this.settings.previousRelease = PLUGIN_VERSION;
+        this.settings.compareManifestToPluginVersion = false;
+        this.settings.showNewVersionNotification = false;
+        await this.saveSettings();
       }
     } catch (e) {
-      new Notice("Error opening release notes", 6000);
-      console.error("Error opening release notes", e);
+      console.error("Error disabling release notes", e);
     }
-    this.logStartupEvent("Release notes opened");
+    this.logStartupEvent("Release notes disabled for Excali build");
 
     //---------------------------------------------------------------------
     //initialization that can happen after Excalidraw views are initialized

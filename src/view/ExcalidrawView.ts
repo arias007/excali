@@ -49,6 +49,7 @@ import {
   EXPORT_IMG_ICON_NAME,
   viewportCoordsToSceneCoords,
   ERROR_IFRAME_CONVERSION_CANCELED,
+  getCommonBoundingBox,
   restoreElements,
   obsidianToExcalidrawMap,
   MAX_IMAGE_SIZE,
@@ -91,7 +92,6 @@ import {
   getURLImageExtension,
 } from "../utils/fileUtils";
 import {
-  checkExcalidrawVersion,
   errorlog,
   getEmbeddedFilenameParts,
   getExportTheme,
@@ -112,7 +112,6 @@ import {
   addAppendUpdateCustomData,
   getFilePathFromObsidianURL,
   getLinkParts,
-  checkVersionMismatch,
   calculateUIModeValue,
   getExportInternalLinks,
 } from "../utils/utils";
@@ -2324,6 +2323,11 @@ export default class ExcalidrawView
   }
 
   onload() {
+    this.contentEl.addClass("excalidraw-view");
+    if (DEVICE.isMobile) {
+      this.contentEl.addClass("excalidraw-compact-toolbar-booting");
+    }
+
     if (this.plugin.settings.overrideObsidianFontSize) {
       mainDocument.documentElement.style.fontSize = "";
     }
@@ -2374,6 +2378,36 @@ export default class ExcalidrawView
     });
 
     this.addTabTitlebarButtons();
+    if (DEVICE.isMobile) {
+      this.contentEl.addClass("excalidraw-compact-toolbar-booting");
+      let compactToolbarBootQueued = false;
+      const queueCompactToolbarBoot = () => {
+        if (compactToolbarBootQueued) {
+          return;
+        }
+        compactToolbarBootQueued = true;
+        this.ownerWindow.requestAnimationFrame(() => {
+          compactToolbarBootQueued = false;
+          this.setCompactToolbarEnabled(true, { preservePenMenu: true });
+          this.updateCompactToolbarLayout();
+        });
+      };
+      const compactToolbarBootObserver = new MutationObserver(
+        queueCompactToolbarBoot,
+      );
+      compactToolbarBootObserver.observe(this.contentEl, {
+        childList: true,
+        subtree: true,
+      });
+      const compactToolbarBootTimeout = this.ownerWindow.setTimeout(() => {
+        this.contentEl.removeClass("excalidraw-compact-toolbar-booting");
+      }, 3000);
+      queueCompactToolbarBoot();
+      this.destroyers.push(() => compactToolbarBootObserver.disconnect());
+      this.destroyers.push(() =>
+        this.ownerWindow.clearTimeout(compactToolbarBootTimeout),
+      );
+    }
 
     const ro = new ResizeObserver(() => {
       const height = this.contentEl.clientHeight;
@@ -2415,7 +2449,6 @@ export default class ExcalidrawView
         await this.plugin.activeLeafChangeEventHandler(this.leaf);
       }
       await this.canvasNodeFactory.initialize();
-      this.contentEl.addClass("excalidraw-view");
       //https://github.com/zsviczian/excalibrain/issues/28
       await this.addSlidingPanesListner(); //awaiting this because when using workspaces, onLayoutReady comes too early
       this.addParentMoveObserver();
@@ -2504,7 +2537,10 @@ export default class ExcalidrawView
 
   private getCompactToolbarPenMenuWidth() {
     const buttonCount = this.compactToolbarPenOrder.length + 1;
-    return buttonCount * 18 + Math.max(0, buttonCount - 1) * 3 + 6;
+    const buttonSize = DEVICE.isMobile ? 16 : 18;
+    const buttonGap = DEVICE.isMobile ? 2 : 3;
+    const padding = DEVICE.isMobile ? 4 : 6;
+    return buttonCount * buttonSize + Math.max(0, buttonCount - 1) * buttonGap + padding;
   }
 
   private isCompactToolbarPenId(pen?: string): pen is CompactToolbarPenId {
@@ -2512,11 +2548,17 @@ export default class ExcalidrawView
   }
 
   private getCompactToolbarBaseRootSelector() {
-    return ".excalidraw-wrapper :is(.excalidraw--tray, .excalidraw--mobile)";
+    return ".excalidraw-wrapper .excalidraw--tray";
+  }
+
+  private getCompactMobileToolbarBaseRootSelector() {
+    return ".excalidraw-wrapper .excalidraw--mobile";
   }
 
   private getCompactToolbarRootSelector() {
-    return `${this.getCompactToolbarBaseRootSelector()}.excalidraw-compact-toolbar-enabled`;
+    return DEVICE.isMobile
+      ? `${this.getCompactMobileToolbarBaseRootSelector()}.excalidraw-mobile-compact-toolbar-enabled`
+      : `${this.getCompactToolbarBaseRootSelector()}.excalidraw-compact-toolbar-enabled`;
   }
 
   private setCompactToolbarEnabled(
@@ -2528,6 +2570,12 @@ export default class ExcalidrawView
     );
     roots.forEach((root) =>
       root.toggleClass("excalidraw-compact-toolbar-enabled", enabled),
+    );
+    const mobileRoots = this.contentEl.querySelectorAll<HTMLElement>(
+      this.getCompactMobileToolbarBaseRootSelector(),
+    );
+    mobileRoots.forEach((root) =>
+      root.toggleClass("excalidraw-mobile-compact-toolbar-enabled", enabled),
     );
     if (!enabled) {
       if (!options?.preservePenMenu) {
@@ -2587,32 +2635,56 @@ export default class ExcalidrawView
 
     const ownerWindow = this.ownerWindow ?? window;
     const penMenuWidth = this.getCompactToolbarPenMenuWidth();
-    const penMenuHeight = 22;
-    const gap = 5;
-    const minLeft = Math.max(wrapperRect.left + 8, 8);
+    const viewportWidth = ownerWindow.innerWidth || wrapperRect.width || 360;
+    const viewportHeight = ownerWindow.innerHeight || wrapperRect.height || 640;
+    const penMenuHeight = DEVICE.isMobile ? 20 : 22;
+    const gap = DEVICE.isMobile ? 2 : 5;
+    const minLeft = DEVICE.isMobile
+      ? 6
+      : Math.max(wrapperRect.left + 8, 8);
     const maxLeft = Math.max(
       minLeft,
-      Math.min(
-        wrapperRect.right - penMenuWidth - 8,
-        ownerWindow.innerWidth - penMenuWidth - 8,
-      ),
+      DEVICE.isMobile
+        ? viewportWidth - penMenuWidth - 6
+        : Math.min(
+            wrapperRect.right - penMenuWidth - 8,
+            viewportWidth - penMenuWidth - 8,
+          ),
     );
-    const minTop = Math.max(wrapperRect.top + 8, 8);
+    const minTop = DEVICE.isMobile
+      ? 6
+      : Math.max(wrapperRect.top + 8, 8);
     const maxTop = Math.max(
       minTop,
-      Math.min(
-        wrapperRect.bottom - penMenuHeight - 8,
-        ownerWindow.innerHeight - penMenuHeight - 8,
-      ),
+      DEVICE.isMobile
+        ? viewportHeight - penMenuHeight - 6
+        : Math.min(
+            wrapperRect.bottom - penMenuHeight - 8,
+            viewportHeight - penMenuHeight - 8,
+          ),
     );
     const preferredLeft =
       penToolRect.left + penToolRect.width / 2 - penMenuWidth / 2;
     let preferredTop = penToolRect.bottom + gap;
+    if (DEVICE.isMobile) {
+      const toolbarBottom = Number.parseFloat(
+        this.contentEl.style.getPropertyValue(
+          "--excalidraw-mobile-compact-bottom",
+        ),
+      );
+      preferredTop = Number.isFinite(toolbarBottom)
+        ? Math.max(preferredTop, toolbarBottom)
+        : preferredTop;
+    }
     if (preferredTop > maxTop && penToolRect.top - penMenuHeight - gap >= minTop) {
       preferredTop = penToolRect.top - penMenuHeight - gap;
     }
     const penMenuLeft = Math.max(minLeft, Math.min(maxLeft, preferredLeft));
     const penMenuTop = Math.max(minTop, Math.min(maxTop, preferredTop));
+    const styleActionsTop = Math.max(
+      minTop,
+      Math.min(maxTop, penMenuTop + penMenuHeight + gap),
+    );
 
     this.contentEl.style.setProperty(
       "--excalidraw-compact-pen-menu-left",
@@ -2626,6 +2698,20 @@ export default class ExcalidrawView
       "--excalidraw-compact-pen-menu-width",
       `${penMenuWidth}px`,
     );
+    if (DEVICE.isMobile) {
+      this.contentEl.style.setProperty(
+        "--excalidraw-mobile-style-actions-left",
+        `${Math.ceil(penMenuLeft - fixedOriginRect.left)}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-mobile-style-actions-top",
+        `${Math.ceil(styleActionsTop - fixedOriginRect.top)}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-mobile-style-actions-max-width",
+        `${Math.max(84, Math.floor(viewportWidth - 12))}px`,
+      );
+    }
   }
 
   private getCompactToolbarSelector(selector: string) {
@@ -3118,78 +3204,288 @@ export default class ExcalidrawView
   private updateCompactMobileToolbarLayout() {
     try {
       this.setCompactToolbarEnabled(true, { preservePenMenu: true });
+      [
+        "--excalidraw-compact-toolbar-left",
+        "--excalidraw-compact-toolbar-top",
+        "--excalidraw-compact-toolbar-width",
+        "--excalidraw-compact-topbar-left",
+        "--excalidraw-compact-topbar-top",
+        "--excalidraw-compact-topbar-width",
+        "--excalidraw-compact-zoom-left",
+        "--excalidraw-compact-settings-left",
+        "--excalidraw-compact-settings-top",
+        "--excalidraw-compact-settings-max-height",
+        "--excalidraw-compact-settings-max-width",
+        "--excalidraw-mobile-topbar-left",
+        "--excalidraw-mobile-topbar-top",
+        "--excalidraw-mobile-topbar-width",
+        "--excalidraw-mobile-shape-menu-left",
+        "--excalidraw-mobile-shape-menu-top",
+        "--excalidraw-mobile-style-actions-left",
+        "--excalidraw-mobile-style-actions-top",
+        "--excalidraw-mobile-style-actions-max-width",
+      ].forEach((property) => this.contentEl.style.removeProperty(property));
+
       const wrapper =
-        this.contentEl.querySelector<HTMLElement>(".excalidraw-wrapper") ??
-        this.contentEl;
-      const wrapperRect = wrapper.getBoundingClientRect();
+        this.contentEl.querySelector<HTMLElement>(".excalidraw-wrapper");
+      const mobileRoot = this.contentEl.querySelector<HTMLElement>(
+        this.getCompactToolbarRootSelector(),
+      );
+      if (!wrapper || !mobileRoot) {
+        this.updateCompactPenMenuLayout();
+        return;
+      }
+
       const ownerWindow = this.ownerWindow ?? window;
-      const viewportWidth = Math.max(
-        240,
-        Math.min(
-          wrapperRect.width || ownerWindow.innerWidth,
-          ownerWindow.innerWidth,
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const fixedOriginProbe = this.ownerDocument.createElement("div");
+      fixedOriginProbe.style.cssText =
+        "height:0;left:0;pointer-events:none;position:fixed;top:0;visibility:hidden;width:0;";
+      this.contentEl.appendChild(fixedOriginProbe);
+      const fixedOriginRect = fixedOriginProbe.getBoundingClientRect();
+      fixedOriginProbe.remove();
+
+      const viewportWidth = ownerWindow.innerWidth || wrapperRect.width || 360;
+      const viewportHeight =
+        ownerWindow.innerHeight || wrapperRect.height || 640;
+      const sourceWidth = wrapperRect.width > 0 ? wrapperRect.width : viewportWidth;
+      const sourceLeft = Number.isFinite(wrapperRect.left)
+        ? wrapperRect.left
+        : 0;
+      const sourceBottom =
+        wrapperRect.bottom > wrapperRect.top
+          ? wrapperRect.bottom
+          : viewportHeight;
+      const panelHeight = 24;
+      const viewportPadding = 4;
+      const safeToolbarTop = Math.max(
+        56,
+        Math.ceil((ownerWindow.visualViewport?.offsetTop ?? 0) + 56),
+      );
+      const maxCompactWidth = Math.floor(
+        Math.max(
+          160,
+          Math.min(sourceWidth - 8, viewportWidth - viewportPadding * 2),
         ),
       );
-      const toolbarLeft = 8;
-      const toolbarTop = 8;
-      const availableToolbarWidth = Math.max(224, viewportWidth - 16);
-      const utilityWidth = Math.min(
-        118,
-        Math.max(92, Math.floor(availableToolbarWidth * 0.3)),
+      const desiredTop = Math.max(wrapperRect.top + 6, safeToolbarTop);
+      const maxTop = Math.max(
+        safeToolbarTop,
+        Math.min(
+          sourceBottom - panelHeight - 6,
+          viewportHeight - panelHeight - 6,
+        ),
       );
-      const topbarLeft = toolbarLeft + utilityWidth - 1;
-      const topbarWidth = Math.max(
-        128,
-        Math.floor(viewportWidth - topbarLeft - 8),
+      const compactTop = Math.min(desiredTop, maxTop);
+      const rowTop = compactTop + 2;
+      const compactBottom = compactTop + panelHeight;
+      const isVisibleControl = (item: HTMLElement) => {
+        const rect = item.getBoundingClientRect();
+        const style = ownerWindow.getComputedStyle(item);
+        return (
+          rect.width > 0 &&
+          rect.height > 0 &&
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          Number(style.opacity || "1") > 0.01
+        );
+      };
+      const uniqueControls = (items: HTMLElement[]) =>
+        items
+          .map((item) => item.closest<HTMLElement>(".ToolIcon") ?? item)
+          .filter((item, index, list) => list.indexOf(item) === index)
+          .filter(isVisibleControl);
+      const measureControlsWidth = (
+        items: HTMLElement[],
+        fallback: number,
+        extra = 0,
+      ) => {
+        if (items.length === 0) {
+          return fallback;
+        }
+        return Math.ceil(
+          items.reduce((sum, item) => {
+            const rect = item.getBoundingClientRect();
+            return sum + Math.max(18, rect.width || 18);
+          }, 0) + extra,
+        );
+      };
+      const leftToolbarRoots = Array.from(
+        mobileRoot.querySelectorAll<HTMLElement>(
+          ".mobile-misc-tools-container, .tray-misc-tools-container",
+        ),
+      ).filter(isVisibleControl);
+      const leftToolbarItems = uniqueControls(
+        leftToolbarRoots.flatMap((root) =>
+          Array.from(
+            root.querySelectorAll<HTMLElement>(
+              ":scope > *, .ToolIcon, .dropdown-menu-button, button.standalone, .sidebar-trigger, .default-sidebar-trigger",
+            ),
+          ),
+        ),
       );
-      const settingsTop = toolbarTop + 30;
+      const topBarWidth = Math.min(
+        Math.max(42, Math.floor(maxCompactWidth * 0.44)),
+        Math.max(42, measureControlsWidth(leftToolbarItems, 56, 2)),
+      );
+      const bottomBar = mobileRoot.querySelector<HTMLElement>(".App-bottom-bar");
+      const visibleToolbarItems = bottomBar
+        ? Array.from(
+            bottomBar.querySelectorAll<HTMLElement>(
+              ".ToolIcon, .compact-action-item, .dropdown-menu-button, .reset-zoom-button, .zoom-button, button.standalone",
+            ),
+          )
+            .map((item) => item.closest<HTMLElement>(".ToolIcon") ?? item)
+            .filter((item, index, list) => list.indexOf(item) === index)
+            .filter((item) => {
+              if (item.closest(".mobile-shape-actions > div:first-child")) {
+                return false;
+              }
+              const style = ownerWindow.getComputedStyle(item);
+              return style.position !== "fixed" && isVisibleControl(item);
+            })
+        : [];
+      const preferredMainToolbarWidth = Math.max(
+        126,
+        measureControlsWidth(visibleToolbarItems, 148, 2),
+      );
+      const minCompactWidth = Math.min(180, maxCompactWidth);
+      let compactWidth = Math.min(
+        maxCompactWidth,
+        Math.max(minCompactWidth, topBarWidth + preferredMainToolbarWidth + 8),
+      );
+      const mainToolbarWidth = Math.max(
+        96,
+        Math.min(preferredMainToolbarWidth, compactWidth - topBarWidth - 8),
+      );
+      const controlsWidth = topBarWidth + mainToolbarWidth;
+      compactWidth = Math.min(
+        maxCompactWidth,
+        Math.max(minCompactWidth, controlsWidth + 8),
+      );
+      const compactLeft = Math.max(
+        viewportPadding,
+        Math.min(
+          sourceLeft + (sourceWidth - compactWidth) / 2,
+          viewportWidth - compactWidth - viewportPadding,
+        ),
+      );
+      const controlsLeft = Math.max(
+        compactLeft + 4,
+        Math.min(
+          compactLeft + compactWidth - controlsWidth - 4,
+          compactLeft + (compactWidth - controlsWidth) / 2,
+        ),
+      );
+      const bottomBarLeft = controlsLeft;
+      const bottomBarWidth = mainToolbarWidth;
+      const topBarLeft = controlsLeft + mainToolbarWidth;
+      const settingsTop = compactTop + panelHeight + 8;
+      const settingsMaxWidth = Math.min(
+        viewportWidth - viewportPadding * 2,
+        Math.max(220, Math.floor(compactWidth)),
+      );
+      const settingsLeft = Math.max(
+        viewportPadding,
+        Math.min(topBarLeft, viewportWidth - settingsMaxWidth - viewportPadding),
+      );
+      const settingsMaxHeight = Math.max(
+        160,
+        Math.floor(
+          Math.min(sourceBottom, viewportHeight) -
+            settingsTop -
+            viewportPadding,
+        ),
+      );
+      const lineTool =
+        mobileRoot
+          .querySelector<HTMLElement>('[data-testid="toolbar-line"]')
+          ?.closest<HTMLElement>(".ToolIcon") ?? null;
+      const lineToolRect = lineTool?.getBoundingClientRect();
+      const shapeMenuWidth = 74;
+      const shapeMenuLeft = Math.max(
+        viewportPadding,
+        Math.min(
+          lineToolRect
+            ? lineToolRect.left + lineToolRect.width / 2 - shapeMenuWidth / 2
+            : bottomBarLeft + 38,
+          viewportWidth - shapeMenuWidth - viewportPadding,
+        ),
+      );
+      const shapeMenuTop = Math.max(compactBottom + 4, safeToolbarTop);
 
       this.contentEl.style.setProperty(
-        "--excalidraw-compact-toolbar-left",
-        `${toolbarLeft}px`,
+        "--excalidraw-mobile-compact-left",
+        `${Math.ceil(compactLeft - fixedOriginRect.left)}px`,
       );
       this.contentEl.style.setProperty(
-        "--excalidraw-compact-toolbar-top",
-        `${toolbarTop}px`,
+        "--excalidraw-mobile-compact-top",
+        `${Math.ceil(compactTop - fixedOriginRect.top)}px`,
       );
       this.contentEl.style.setProperty(
-        "--excalidraw-compact-toolbar-width",
-        `${utilityWidth}px`,
+        "--excalidraw-mobile-compact-row-two-top",
+        `${Math.ceil(rowTop - fixedOriginRect.top)}px`,
       );
       this.contentEl.style.setProperty(
-        "--excalidraw-compact-topbar-left",
-        `${topbarLeft}px`,
+        "--excalidraw-mobile-compact-bottom",
+        `${Math.ceil(compactBottom - fixedOriginRect.top)}px`,
       );
       this.contentEl.style.setProperty(
-        "--excalidraw-compact-topbar-top",
-        `${toolbarTop}px`,
+        "--excalidraw-mobile-compact-width",
+        `${compactWidth}px`,
       );
       this.contentEl.style.setProperty(
-        "--excalidraw-compact-topbar-width",
-        `${topbarWidth}px`,
+        "--excalidraw-mobile-bottom-bar-left",
+        `${Math.ceil(bottomBarLeft - fixedOriginRect.left)}px`,
       );
       this.contentEl.style.setProperty(
-        "--excalidraw-compact-zoom-left",
-        "20px",
+        "--excalidraw-mobile-bottom-bar-width",
+        `${Math.floor(bottomBarWidth)}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-mobile-compact-height",
+        `${panelHeight}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-mobile-topbar-left",
+        `${Math.ceil(topBarLeft - fixedOriginRect.left)}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-mobile-topbar-top",
+        `${Math.ceil(rowTop - fixedOriginRect.top)}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-mobile-topbar-width",
+        `${topBarWidth}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-mobile-shape-menu-left",
+        `${Math.ceil(shapeMenuLeft - fixedOriginRect.left)}px`,
+      );
+      this.contentEl.style.setProperty(
+        "--excalidraw-mobile-shape-menu-top",
+        `${Math.ceil(shapeMenuTop - fixedOriginRect.top)}px`,
       );
       this.contentEl.style.setProperty(
         "--excalidraw-compact-settings-left",
-        `${toolbarLeft}px`,
+        `${Math.ceil(settingsLeft - fixedOriginRect.left)}px`,
       );
       this.contentEl.style.setProperty(
         "--excalidraw-compact-settings-top",
-        `${settingsTop}px`,
+        `${Math.ceil(settingsTop - fixedOriginRect.top)}px`,
       );
       this.contentEl.style.setProperty(
         "--excalidraw-compact-settings-max-height",
-        `${Math.max(120, Math.floor(ownerWindow.innerHeight - settingsTop - 8))}px`,
+        `${settingsMaxHeight}px`,
       );
       this.contentEl.style.setProperty(
         "--excalidraw-compact-settings-max-width",
-        `${Math.max(172, Math.floor(viewportWidth - 16))}px`,
+        `${settingsMaxWidth}px`,
       );
+      this.contentEl.removeClass("excalidraw-compact-toolbar-booting");
       this.updateCompactPenMenuLayout();
     } catch {
+      this.contentEl.removeClass("excalidraw-compact-toolbar-booting");
       // Mobile layout refresh is best-effort; CSS defaults keep the toolbar visible.
     }
   }
@@ -3344,11 +3640,6 @@ export default class ExcalidrawView
   }
 
   private updateCompactSelectedElementActionsPosition() {
-    if (DEVICE.isMobile) {
-      this.contentEl.removeClass("excalidraw-compact-floating-actions");
-      this.contentEl.removeClass("excalidraw-compact-selected-actions");
-      return;
-    }
     try {
       const api = this.excalidrawAPI;
       const appState = api?.getAppState();
@@ -3358,32 +3649,59 @@ export default class ExcalidrawView
         return;
       }
 
+      const selectedElementIds = appState.selectedElementIds ?? {};
+      const selectedElements = api
+        .getSceneElements()
+        .filter((element) => selectedElementIds[element.id] && !element.isDeleted);
       const actionButtons = Array.from(
         this.queryCompactToolbarElements<HTMLElement>(
           [
-            '.App-bottom-bar button[aria-label="编辑"]',
-            '.App-bottom-bar button[aria-label="Edit"]',
-            '.App-bottom-bar button[aria-label="复制"]',
-            '.App-bottom-bar button[aria-label="Duplicate"]',
-            '.App-bottom-bar button[aria-label="删除"]',
-            '.App-bottom-bar button[aria-label="Delete"]',
-            '.App-mobile-menu button[aria-label="编辑"]',
-            '.App-mobile-menu button[aria-label="Edit"]',
-            '.App-mobile-menu button[aria-label="复制"]',
-            '.App-mobile-menu button[aria-label="Duplicate"]',
-            '.App-mobile-menu button[aria-label="删除"]',
-            '.App-mobile-menu button[aria-label="Delete"]',
+            '.App-bottom-bar button[aria-label*="编辑"]',
+            '.App-bottom-bar button[aria-label*="Edit"]',
+            '.App-bottom-bar button[aria-label*="edit"]',
+            '.App-bottom-bar button[title*="编辑"]',
+            '.App-bottom-bar button[title*="Edit"]',
+            '.App-bottom-bar button[title*="edit"]',
+            '.App-bottom-bar button[aria-label*="复制"]',
+            '.App-bottom-bar button[aria-label*="Duplicate"]',
+            '.App-bottom-bar button[aria-label*="duplicate"]',
+            '.App-bottom-bar button[title*="复制"]',
+            '.App-bottom-bar button[title*="Duplicate"]',
+            '.App-bottom-bar button[title*="duplicate"]',
+            '.App-bottom-bar button[aria-label*="删除"]',
+            '.App-bottom-bar button[aria-label*="Delete"]',
+            '.App-bottom-bar button[aria-label*="delete"]',
+            '.App-bottom-bar button[title*="删除"]',
+            '.App-bottom-bar button[title*="Delete"]',
+            '.App-bottom-bar button[title*="delete"]',
+            '.App-mobile-menu button[aria-label*="编辑"]',
+            '.App-mobile-menu button[aria-label*="Edit"]',
+            '.App-mobile-menu button[aria-label*="edit"]',
+            '.App-mobile-menu button[title*="编辑"]',
+            '.App-mobile-menu button[title*="Edit"]',
+            '.App-mobile-menu button[title*="edit"]',
+            '.App-mobile-menu button[aria-label*="复制"]',
+            '.App-mobile-menu button[aria-label*="Duplicate"]',
+            '.App-mobile-menu button[aria-label*="duplicate"]',
+            '.App-mobile-menu button[title*="复制"]',
+            '.App-mobile-menu button[title*="Duplicate"]',
+            '.App-mobile-menu button[title*="duplicate"]',
+            '.App-mobile-menu button[aria-label*="删除"]',
+            '.App-mobile-menu button[aria-label*="Delete"]',
+            '.App-mobile-menu button[aria-label*="delete"]',
+            '.App-mobile-menu button[title*="删除"]',
+            '.App-mobile-menu button[title*="Delete"]',
+            '.App-mobile-menu button[title*="delete"]',
           ],
         ),
       ).filter((button) => {
         const style = this.ownerWindow.getComputedStyle(button);
         return style.display !== "none" && style.visibility !== "hidden";
       });
-      const actionCount = Math.max(1, Math.min(3, actionButtons.length));
-      const selectedElementIds = appState.selectedElementIds ?? {};
-      const selectedElements = api
-        .getSceneElements()
-        .filter((element) => selectedElementIds[element.id] && !element.isDeleted);
+      const actionCount =
+        selectedElements.length > 0
+          ? 3
+          : Math.max(1, Math.min(3, actionButtons.length));
 
       const wrapperRect =
         this.contentEl
@@ -3397,28 +3715,44 @@ export default class ExcalidrawView
       const fixedOriginRect = fixedOriginProbe.getBoundingClientRect();
       fixedOriginProbe.remove();
       const toolbarBottom =
-        (this.queryCompactToolbarElement<HTMLElement>(".App-bottom-bar")
-          ?.getBoundingClientRect().bottom ?? wrapperRect.top + 30) + 6;
+        DEVICE.isMobile
+          ? Number.parseFloat(
+              this.contentEl.style.getPropertyValue(
+                "--excalidraw-mobile-compact-bottom",
+              ),
+            ) || wrapperRect.top + 48
+          : (this.queryCompactToolbarElement<HTMLElement>(".App-bottom-bar")
+              ?.getBoundingClientRect().bottom ?? wrapperRect.top + 30) + 6;
       const clamp = (value: number, min: number, max: number) =>
         Math.max(min, Math.min(max, value));
       const actionsWidth = actionCount * 20 - 2;
-      const actionsHeight = 20;
-      const selectedActionGap = 3;
-      const minLeft = Math.max(wrapperRect.left + 8, 8);
+      const actionsHeight = DEVICE.isMobile ? 18 : 20;
+      const selectedActionGap = DEVICE.isMobile ? 2 : 3;
+      const actionViewportWidth =
+        ownerWindow.innerWidth || wrapperRect.width || 360;
+      const actionViewportHeight =
+        ownerWindow.innerHeight || wrapperRect.height || 640;
+      const minLeft = DEVICE.isMobile ? 6 : Math.max(wrapperRect.left + 8, 8);
       const maxLeft = Math.max(
         minLeft,
-        Math.min(
-          wrapperRect.right - actionsWidth - 8,
-          ownerWindow.innerWidth - actionsWidth - 8,
-        ),
+        DEVICE.isMobile
+          ? actionViewportWidth - actionsWidth - 6
+          : Math.min(
+              wrapperRect.right - actionsWidth - 8,
+              actionViewportWidth - actionsWidth - 8,
+            ),
       );
-      const minTop = Math.max(toolbarBottom, wrapperRect.top + 8, 8);
+      const minTop = DEVICE.isMobile
+        ? Math.max(toolbarBottom + 3, 6)
+        : Math.max(toolbarBottom, wrapperRect.top + 8, 8);
       const maxTop = Math.max(
         minTop,
-        Math.min(
-          wrapperRect.bottom - actionsHeight - 8,
-          ownerWindow.innerHeight - actionsHeight - 8,
-        ),
+        DEVICE.isMobile
+          ? actionViewportHeight - actionsHeight - 6
+          : Math.min(
+              wrapperRect.bottom - actionsHeight - 8,
+              actionViewportHeight - actionsHeight - 8,
+            ),
       );
 
       if (selectedElements.length === 0) {
@@ -3512,43 +3846,32 @@ export default class ExcalidrawView
         return;
       }
 
-      const zoom = appState.zoom?.value ?? 1;
-      const offsetLeft = Number.isFinite(appState.offsetLeft)
-        ? appState.offsetLeft
-        : wrapperRect.left;
-      const offsetTop = Number.isFinite(appState.offsetTop)
-        ? appState.offsetTop
-        : wrapperRect.top;
-      const viewportWidth = appState.width || wrapperRect.width;
-      const viewportHeight = appState.height || wrapperRect.height;
-      const sceneToViewport = (x: number, y: number) => ({
-        x: (x + appState.scrollX) * zoom + viewportWidth / 2 + offsetLeft,
-        y: (y + appState.scrollY) * zoom + viewportHeight / 2 + offsetTop,
-      });
-
-      const minX = Math.min(...selectedElements.map((element) => element.x));
-      const minY = Math.min(...selectedElements.map((element) => element.y));
-      const maxX = Math.max(
-        ...selectedElements.map((element) => element.x + element.width),
+      const selectedBounds = getCommonBoundingBox(selectedElements);
+      const topLeft = sceneCoordsToViewportCoords(
+        { sceneX: selectedBounds.minX, sceneY: selectedBounds.minY },
+        appState,
       );
-      const maxY = Math.max(
-        ...selectedElements.map((element) => element.y + element.height),
+      const bottomRight = sceneCoordsToViewportCoords(
+        { sceneX: selectedBounds.maxX, sceneY: selectedBounds.maxY },
+        appState,
       );
-      const topLeft = sceneToViewport(minX, minY);
-      const bottomRight = sceneToViewport(maxX, maxY);
-      const visibleLeft = clamp(topLeft.x, minLeft, maxLeft + actionsWidth);
-      const visibleRight = clamp(bottomRight.x, minLeft, maxLeft + actionsWidth);
-      const visibleTop = clamp(topLeft.y, minTop, maxTop + actionsHeight);
-      const visibleBottom = clamp(bottomRight.y, minTop, maxTop + actionsHeight);
+      const rawLeft = Math.min(topLeft.x, bottomRight.x);
+      const rawRight = Math.max(topLeft.x, bottomRight.x);
+      const rawTop = Math.min(topLeft.y, bottomRight.y);
+      const rawBottom = Math.max(topLeft.y, bottomRight.y);
+      const visibleLeft = clamp(rawLeft, minLeft, maxLeft + actionsWidth);
+      const visibleRight = clamp(rawRight, minLeft, maxLeft + actionsWidth);
+      const visibleTop = clamp(rawTop, minTop, maxTop + actionsHeight);
+      const visibleBottom = clamp(rawBottom, minTop, maxTop + actionsHeight);
+      const selectedCenterX =
+        (Math.min(visibleLeft, visibleRight) +
+          Math.max(visibleLeft, visibleRight)) /
+        2;
       const left =
-        clamp(
-          Math.min(visibleLeft, visibleRight) + selectedActionGap,
-          minLeft,
-          maxLeft,
-        ) -
+        clamp(selectedCenterX - actionsWidth / 2, minLeft, maxLeft) -
         fixedOriginRect.left;
       const aboveTop = visibleTop - actionsHeight - selectedActionGap;
-      const belowTop = visibleTop + selectedActionGap;
+      const belowTop = visibleBottom + selectedActionGap;
       const preferredTop =
         aboveTop >= minTop
           ? aboveTop
@@ -4387,12 +4710,6 @@ export default class ExcalidrawView
     this.isLoaded = false;
     if (!this.file) {
       return;
-    }
-    if (this.plugin.settings.compareManifestToPluginVersion) {
-      void checkVersionMismatch(this.plugin);
-    }
-    if (this.plugin.settings.showNewVersionNotification) {
-      void checkExcalidrawVersion();
     }
     if (isMaskFile(this.plugin, this.file)) {
       const notice = new Notice(t("MASK_FILE_NOTICE"), 5000);
