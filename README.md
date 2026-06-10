@@ -82,7 +82,7 @@ styles.css
 
 - This is a custom modified build, not the official upstream release.
 - The plugin ID has not been renamed to avoid breaking the current Obsidian installation path.
-- The version is intentionally set higher than upstream (`99.x`) so Obsidian does not replace this custom build with the official community plugin update.
+- The version is intentionally set higher than upstream (`33.x`) so Obsidian does not replace this custom build with the official community plugin update.
 - Back up the original Excalidraw plugin folder before replacing it.
 
 ## Upstream
