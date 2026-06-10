@@ -1089,6 +1089,11 @@ export const DEFAULT_SETTINGS: ExcalidrawSettings = {
   disableContextMenu: false,
 };
 
+const SETTINGS_EXTRA_CODE_ASSETS = [
+  { path: "extras/code-1.jpg", label: "二维码 1" },
+  { path: "extras/code-2.png", label: "二维码 2" },
+] as const;
+
 export class ExcalidrawSettingTab extends PluginSettingTab {
   plugin: ExcalidrawPlugin;
   private requestEmbedUpdate: boolean = false;
@@ -1229,6 +1234,67 @@ export class ExcalidrawSettingTab extends PluginSettingTab {
     this.markSettingsDirty();
     if (requestReloadDrawings) {
       this.requestReloadDrawings = true;
+    }
+  }
+
+  private async getOptionalSettingsExtraAssetResourcePath(
+    relativePath: string,
+  ): Promise<string | null> {
+    const pluginDir = this.plugin.manifest.dir;
+    if (!pluginDir) {
+      return null;
+    }
+
+    const assetPath = normalizePath(`${pluginDir}/${relativePath}`);
+    if (!(await this.app.vault.adapter.exists(assetPath))) {
+      return null;
+    }
+
+    return this.app.vault.adapter.getResourcePath(assetPath);
+  }
+
+  private async renderSettingsExtraCodes(containerEl: HTMLElement) {
+    const codeItems: { path: string; label: string; src: string }[] = [];
+    for (const asset of SETTINGS_EXTRA_CODE_ASSETS) {
+      const src = await this.getOptionalSettingsExtraAssetResourcePath(
+        asset.path,
+      );
+      if (src) {
+        codeItems.push({ path: asset.path, label: asset.label, src });
+      }
+    }
+
+    if (codeItems.length === 0 || !containerEl.isConnected) {
+      return;
+    }
+
+    const codesEl = containerEl.createDiv({
+      cls: "excalidraw-settings-extra-codes",
+    });
+    codesEl.createDiv({
+      cls: "excalidraw-settings-extra-codes-title",
+      text: "二维码",
+    });
+    const gridEl = codesEl.createDiv({
+      cls: "excalidraw-settings-extra-codes-grid",
+    });
+
+    for (const item of codeItems) {
+      const codeEl = gridEl.createDiv({
+        cls: "excalidraw-settings-extra-code",
+      });
+      codeEl.createEl("img", {
+        cls: "excalidraw-settings-extra-code-image",
+        attr: {
+          src: item.src,
+          alt: item.label,
+          loading: "lazy",
+        },
+      });
+      codeEl.createDiv({
+        cls: "excalidraw-settings-extra-code-label",
+        text: item.label,
+      });
     }
   }
 
@@ -4773,5 +4839,7 @@ export class ExcalidrawSettingTab extends PluginSettingTab {
           });
         });
     }
+
+    void this.renderSettingsExtraCodes(containerEl);
   }
 }
