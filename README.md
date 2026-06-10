@@ -29,6 +29,7 @@ Download the ZIP file, unzip it, and place the plugin files into your Obsidian p
 - Selected elements can be shown as temporary translucent objects while using the selection tool.
 - Pen stroke width uses a compact slider in the pen style menu, with a larger range for thick handwriting.
 - The older external pen width slider has been removed so the width control stays inside the pen menu.
+- In pen mode, a tap can temporarily select an existing element, and the next drag returns to the active pen.
 - Interactive Markdown and image import layering was adjusted so handwriting stays above imported images.
 - Imported Markdown images now keep better position and sizing.
 - Imported content frames are adjusted to better fit annotation workflows.
