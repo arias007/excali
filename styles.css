@@ -39,7 +39,7 @@
 .is-mobile .excalidraw-view.excalidraw-compact-pen-menu-visible .excalidraw-compact-pen-menu,
 .is-mobile .excalidraw-wrapper .excalidraw-compact-pen-menu {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 56px) !important;
-  left: max(4px, calc(var(--excalidraw-compact-pen-menu-left, calc(50vw - 44px)) - 18px)) !important;
+  left: max(4px, min(calc(100vw - var(--excalidraw-compact-pen-menu-width, 78px) - 4px), calc(var(--excalidraw-compact-pen-menu-left, calc(50vw - 44px)) + 2px))) !important;
   min-width: var(--excalidraw-compact-pen-menu-width, 78px) !important;
   height: 26px !important;
   padding: 3px 5px !important;

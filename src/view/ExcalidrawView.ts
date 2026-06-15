@@ -157,6 +157,7 @@ import { ObsidianMenu } from "./components/menu/ObsidianMenu";
 import { ToolsPanel } from "./components/menu/ToolsPanel";
 import { ScriptEngine } from "../shared/Scripts";
 import {
+  getElementsAtPointer,
   getTextElementAtPointer,
   getImageElementAtPointer,
   getElementWithLinkAtPointer,
@@ -510,6 +511,21 @@ export default class ExcalidrawView
   private compactToolbarPenOrder: CompactToolbarPenId[] = ["black", "red"];
   private compactToolbarNextCustomPenIndex = 1;
   private readonly compactToolbarMaxPens = 6;
+  private readonly selectedFreedrawOpacity = 50;
+  private readonly mobileToolbarTopOffset = 84;
+  private readonly mobilePenMenuRightOffset = 30;
+  private selectedFreedrawOpacityRestore = new Map<string, number>();
+  private penTapHybridSelectionActive = false;
+  private penTapSelectionCandidate: {
+    pointerId: number;
+    startClientX: number;
+    startClientY: number;
+    startSceneX: number;
+    startSceneY: number;
+    elementId: string | null;
+    cancelSelectionOnTap: boolean;
+    sceneElementIds: Set<string>;
+  } | null = null;
   private compactToolbarPenStyles: Record<string, CompactToolbarPenStyle> = {
     black: {
       currentStrokeOptions: null,
@@ -2494,6 +2510,7 @@ export default class ExcalidrawView
       //this.registerDomEvent(this.contentEl, "mouseleave", onBlurOrLeave, false); //https://github.com/zsviczian/obsidian-excalidraw-plugin/issues/2004
       this.registerDomEvent(this.ownerWindow, "blur", onBlurOrLeave, false);
       this.setupCompactToolbarSubmenus();
+      this.setupPenTapSelection();
       this.semaphores.viewloaded = true;
     });
 
@@ -2664,7 +2681,10 @@ export default class ExcalidrawView
           ),
     );
     const preferredLeft =
-      penToolRect.left + penToolRect.width / 2 - penMenuWidth / 2;
+      penToolRect.left +
+      penToolRect.width / 2 -
+      penMenuWidth / 2 +
+      (DEVICE.isMobile ? this.mobilePenMenuRightOffset : 0);
     let preferredTop = penToolRect.bottom + gap;
     if (DEVICE.isMobile) {
       const toolbarBottom = Number.parseFloat(
@@ -3259,8 +3279,11 @@ export default class ExcalidrawView
       const panelHeight = 24;
       const viewportPadding = 4;
       const safeToolbarTop = Math.max(
-        56,
-        Math.ceil((ownerWindow.visualViewport?.offsetTop ?? 0) + 56),
+        this.mobileToolbarTopOffset,
+        Math.ceil(
+          (ownerWindow.visualViewport?.offsetTop ?? 0) +
+            this.mobileToolbarTopOffset,
+        ),
       );
       const maxCompactWidth = Math.floor(
         Math.max(
@@ -3637,6 +3660,344 @@ export default class ExcalidrawView
     } catch {
       // Layout measurements are opportunistic; default CSS keeps the toolbar usable.
     }
+  }
+
+  private getFreedrawElementAtScenePoint(
+    sceneX: number,
+    sceneY: number,
+  ): ExcalidrawElement | null {
+    const api = this.excalidrawAPI;
+    const appState = api?.getAppState();
+    if (!api || !appState) {
+      return null;
+    }
+    const tolerance = DEVICE.isMobile
+      ? Math.max(12, 12 / Math.max(appState.zoom?.value ?? 1, 0.1))
+      : Math.max(7, 7 / Math.max(appState.zoom?.value ?? 1, 0.1));
+    const elements = api.getSceneElements() as ExcalidrawElement[];
+    for (let index = elements.length - 1; index >= 0; index--) {
+      const element = elements[index];
+      if (element.isDeleted || element.type !== "freedraw") {
+        continue;
+      }
+      const minX = Math.min(element.x, element.x + element.width) - tolerance;
+      const maxX = Math.max(element.x, element.x + element.width) + tolerance;
+      const minY = Math.min(element.y, element.y + element.height) - tolerance;
+      const maxY = Math.max(element.y, element.y + element.height) + tolerance;
+      if (sceneX >= minX && sceneX <= maxX && sceneY >= minY && sceneY <= maxY) {
+        return element;
+      }
+    }
+    return null;
+  }
+
+  private getElementAtScenePoint(
+    sceneX: number,
+    sceneY: number,
+  ): ExcalidrawElement | null {
+    const api = this.excalidrawAPI;
+    if (!api) {
+      return null;
+    }
+    const elementsAtPointer = getElementsAtPointer(
+      { x: sceneX, y: sceneY },
+      api.getSceneElements() as ExcalidrawElement[],
+    ).filter((element) => !element.isDeleted);
+    return elementsAtPointer[0] ?? this.getFreedrawElementAtScenePoint(sceneX, sceneY);
+  }
+
+  private isScenePointInSelectedElements(sceneX: number, sceneY: number): boolean {
+    const api = this.excalidrawAPI;
+    const appState = api?.getAppState();
+    if (!api || !appState) {
+      return false;
+    }
+    const selectedElementIds = appState.selectedElementIds ?? {};
+    const selectedElements = (api.getSceneElements() as ExcalidrawElement[]).filter(
+      (element) => selectedElementIds[element.id] && !element.isDeleted,
+    );
+    if (selectedElements.length === 0) {
+      return false;
+    }
+    const bounds = getCommonBoundingBox(selectedElements);
+    const tolerance = DEVICE.isMobile
+      ? Math.max(12, 12 / Math.max(appState.zoom?.value ?? 1, 0.1))
+      : Math.max(7, 7 / Math.max(appState.zoom?.value ?? 1, 0.1));
+    return (
+      sceneX >= bounds.minX - tolerance &&
+      sceneX <= bounds.maxX + tolerance &&
+      sceneY >= bounds.minY - tolerance &&
+      sceneY <= bounds.maxY + tolerance
+    );
+  }
+
+  private selectElementFromPenTap(elementId: string): boolean {
+    const api = this.excalidrawAPI;
+    const appState = api?.getAppState();
+    if (!api || !appState) {
+      return false;
+    }
+    const element = (api.getSceneElements() as ExcalidrawElement[]).find(
+      (sceneElement) => sceneElement.id === elementId && !sceneElement.isDeleted,
+    );
+    if (!element) {
+      return false;
+    }
+    api.setActiveTool({ type: "selection" });
+    this.penTapHybridSelectionActive = true;
+    api.updateScene({
+      appState: {
+        selectedElementIds: { [elementId]: true },
+      },
+      captureUpdate: CaptureUpdateAction.NEVER,
+    });
+    this.applySelectedFreedrawOpacity();
+    this.updateCompactSelectedElementActionsPosition();
+    return true;
+  }
+
+  private cancelPenTapSelection() {
+    const api = this.excalidrawAPI;
+    if (!api) {
+      return;
+    }
+    this.penTapHybridSelectionActive = false;
+    api.setActiveTool({ type: "freedraw" });
+    api.updateScene({
+      appState: {
+        selectedElementIds: {},
+      },
+      captureUpdate: CaptureUpdateAction.NEVER,
+    });
+    this.applySelectedFreedrawOpacity();
+    this.updateCompactSelectedElementActionsPosition();
+  }
+
+  private removePenTapDot(
+    candidate: NonNullable<ExcalidrawView["penTapSelectionCandidate"]>,
+  ) {
+    const api = this.excalidrawAPI;
+    const elements = api?.getSceneElements() as ExcalidrawElement[] | undefined;
+    const dotElements =
+      elements?.filter(
+        (element) =>
+          element.type === "freedraw" &&
+          !element.isDeleted &&
+          !candidate.sceneElementIds.has(element.id) &&
+          Math.abs(element.x - candidate.startSceneX) <= 6 &&
+          Math.abs(element.y - candidate.startSceneY) <= 6 &&
+          Math.abs(element.width) <= 12 &&
+          Math.abs(element.height) <= 12,
+      ) ?? [];
+    if (dotElements.length === 0 || !elements) {
+      return;
+    }
+    const dotIds = new Set(dotElements.map((element) => element.id));
+    this.updateScene({
+      elements: elements.map((element) =>
+        dotIds.has(element.id)
+          ? ({
+              ...element,
+              isDeleted: true,
+            } as ExcalidrawElement)
+          : element,
+      ),
+      captureUpdate: CaptureUpdateAction.NEVER,
+    });
+  }
+
+  private applySelectedFreedrawOpacity() {
+    const api = this.excalidrawAPI;
+    const appState = api?.getAppState();
+    if (!api || !appState) {
+      return;
+    }
+    const selectedElementIds = appState.selectedElementIds ?? {};
+    const selectedFreedrawIds = new Set<string>();
+    const elements = api.getSceneElements() as ExcalidrawElement[];
+    let changed = false;
+    const updatedElements = elements.map((element) => {
+      if (element.isDeleted || element.type !== "freedraw") {
+        return element;
+      }
+      if (!selectedElementIds[element.id]) {
+        if (!this.selectedFreedrawOpacityRestore.has(element.id)) {
+          return element;
+        }
+        const restoreOpacity = this.selectedFreedrawOpacityRestore.get(
+          element.id,
+        );
+        this.selectedFreedrawOpacityRestore.delete(element.id);
+        if (
+          typeof restoreOpacity !== "number" ||
+          element.opacity === restoreOpacity
+        ) {
+          return element;
+        }
+        changed = true;
+        return { ...element, opacity: restoreOpacity } as ExcalidrawElement;
+      }
+      selectedFreedrawIds.add(element.id);
+      if (!this.selectedFreedrawOpacityRestore.has(element.id)) {
+        this.selectedFreedrawOpacityRestore.set(element.id, element.opacity ?? 100);
+      }
+      if (element.opacity === this.selectedFreedrawOpacity) {
+        return element;
+      }
+      changed = true;
+      return {
+        ...element,
+        opacity: this.selectedFreedrawOpacity,
+      } as ExcalidrawElement;
+    });
+    this.selectedFreedrawOpacityRestore.forEach((_restoreOpacity, id) => {
+      if (!selectedFreedrawIds.has(id)) {
+        this.selectedFreedrawOpacityRestore.delete(id);
+      }
+    });
+    if (changed) {
+      this.updateScene({
+        elements: updatedElements,
+        captureUpdate: CaptureUpdateAction.NEVER,
+      });
+      this.setDirty();
+    }
+  }
+
+  private setupPenTapSelection() {
+    const tapMoveTolerance = DEVICE.isMobile ? 10 : 6;
+    const shouldIgnoreTarget = (target: HTMLElement | null) =>
+      Boolean(
+        target?.closest(
+          ".excalidraw-compact-pen-menu, .App-toolbar, .App-bottom-bar, .App-mobile-menu, .App-tray-menu, .dropdown-menu-container, .mobile-misc-tools-container, .tray-misc-tools-container",
+        ),
+      );
+    const clearCandidate = () => {
+      this.penTapSelectionCandidate = null;
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      const api = this.excalidrawAPI;
+      const appState = api?.getAppState();
+      const canUsePenTapSelection =
+        appState?.activeTool?.type === "freedraw" ||
+        (this.penTapHybridSelectionActive &&
+          appState?.activeTool?.type === "selection");
+      if (
+        !api ||
+        !appState ||
+        !canUsePenTapSelection ||
+        shouldIgnoreTarget(event.target as HTMLElement | null)
+      ) {
+        clearCandidate();
+        return;
+      }
+      const scenePoint = viewportCoordsToSceneCoords(
+        { clientX: event.clientX, clientY: event.clientY },
+        appState,
+      );
+      if (
+        this.penTapHybridSelectionActive &&
+        appState.activeTool?.type === "selection"
+      ) {
+        if (this.isScenePointInSelectedElements(scenePoint.x, scenePoint.y)) {
+          clearCandidate();
+          return;
+        }
+        api.setActiveTool({ type: "freedraw" });
+        this.penTapSelectionCandidate = {
+          pointerId: event.pointerId,
+          startClientX: event.clientX,
+          startClientY: event.clientY,
+          startSceneX: scenePoint.x,
+          startSceneY: scenePoint.y,
+          elementId: null,
+          cancelSelectionOnTap: true,
+          sceneElementIds: new Set(
+            (api.getSceneElements() as ExcalidrawElement[]).map((el) => el.id),
+          ),
+        };
+        return;
+      }
+      const element = this.getElementAtScenePoint(
+        scenePoint.x,
+        scenePoint.y,
+      );
+      this.penTapSelectionCandidate = element
+        ? {
+            pointerId: event.pointerId,
+            startClientX: event.clientX,
+            startClientY: event.clientY,
+            startSceneX: scenePoint.x,
+            startSceneY: scenePoint.y,
+            elementId: element.id,
+            cancelSelectionOnTap: false,
+            sceneElementIds: new Set(
+              (api.getSceneElements() as ExcalidrawElement[]).map((el) => el.id),
+            ),
+          }
+        : null;
+    };
+    const onPointerMove = (event: PointerEvent) => {
+      const candidate = this.penTapSelectionCandidate;
+      if (!candidate || candidate.pointerId !== event.pointerId) {
+        return;
+      }
+      const moved = Math.hypot(
+        event.clientX - candidate.startClientX,
+        event.clientY - candidate.startClientY,
+      );
+      if (moved > tapMoveTolerance) {
+        if (candidate.cancelSelectionOnTap) {
+          this.cancelPenTapSelection();
+        } else {
+          this.penTapHybridSelectionActive = false;
+        }
+        clearCandidate();
+      }
+    };
+    const onPointerUp = (event: PointerEvent) => {
+      const candidate = this.penTapSelectionCandidate;
+      clearCandidate();
+      if (!candidate || candidate.pointerId !== event.pointerId) {
+        return;
+      }
+      const moved = Math.hypot(
+        event.clientX - candidate.startClientX,
+        event.clientY - candidate.startClientY,
+      );
+      if (moved > tapMoveTolerance) {
+        if (candidate.cancelSelectionOnTap) {
+          this.cancelPenTapSelection();
+        } else {
+          this.penTapHybridSelectionActive = false;
+        }
+        return;
+      }
+      if (candidate.cancelSelectionOnTap || !candidate.elementId) {
+        this.cancelPenTapSelection();
+        this.removePenTapDot(candidate);
+        return;
+      }
+      if (!this.selectElementFromPenTap(candidate.elementId)) {
+        return;
+      }
+      this.removePenTapDot(candidate);
+    };
+    const onPointerCancel = (event: PointerEvent) => {
+      if (this.penTapSelectionCandidate?.pointerId === event.pointerId) {
+        clearCandidate();
+      }
+    };
+    this.registerDomEvent(this.contentEl, "pointerdown", onPointerDown, {
+      capture: true,
+    });
+    this.registerDomEvent(this.contentEl, "pointermove", onPointerMove, {
+      capture: true,
+    });
+    this.registerDomEvent(this.contentEl, "pointerup", onPointerUp);
+    this.registerDomEvent(this.contentEl, "pointercancel", onPointerCancel, {
+      capture: true,
+    });
   }
 
   private updateCompactSelectedElementActionsPosition() {
@@ -7258,6 +7619,7 @@ export default class ExcalidrawView
     if (st.newElement?.type === "freedraw") {
       this.freedrawLastActiveTimestamp = Date.now();
     }
+    this.applySelectedFreedrawOpacity();
     if (
       st.newElement ||
       st.editingTextElement ||
